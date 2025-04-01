@@ -1,0 +1,29 @@
+Download and Install Burp - https://portswigger.net/burp/communitydownload
+
+Press Windows Icon (bottom left taskbar), search Internet Option and open. 
+
+Go to Connections tab, click LAN settings, tick "Use a proxy server for your LAN".
+
+For address: 127.0.0.1 for port: 8080 select OK.
+
+Open Burp, click next for all and start.
+
+Go to Proxy tab and set to "Intercept is off".
+ - Go to https://google.com to test if it loads.
+ - If you can't access HTTPS sites through burp, read "InstallBurpCert.txt"
+
+Open discord on PC.
+
+In web browser, navigate to: https://discordapp.com/gifts/rsDpMJFeWRewFcx3
+
+Go to burp, set to "Intercept is on" and refresh discord page in web browser.
+
+Back to burp, click "Forward" until you reach a request which shows "Authorization" and "X-Fingerprint" headers/values.
+ - The top header should be: GET /api/v6/entitlements/gift-codes/rsDpMJFeWRewFcx3?with_application=true&with_subscription_plan=true HTTP/1.1 
+
+Copy the Authorization value and paste in authkey.txt, save. Copy the X-Fingerprint value and paste in fingerprint.txt, save.
+Run Gen.py with python, or place pre-generated Nitro codes in CodesS.txt
+
+Open program and click start.
+
+Note: If program sleeps after 20 requests there is something wrong with your authorization value, or fingerprint value. They must match and are unique to your Discord App

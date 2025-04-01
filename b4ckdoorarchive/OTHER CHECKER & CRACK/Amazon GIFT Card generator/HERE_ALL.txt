@@ -1,0 +1,25 @@
+
+HERE IS MY OWN: http://generator.voucherify.io/
+
+I am using firefox version 55.0 and imacros version 9.0.3. It is likely NOT TO work for you if you have different version!
+
+
+
+1, Go to http://generator.voucherify.io/
+
+2, Click on "Advanced options..."
+
+3, Set amount of codes to whatever you want, but there might be a limit for 10k codes (my checker can do max 99999 at a time)
+
+4, Set Single code length to 15
+
+5, Set character set to "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+6, Leave code prefix and code postfix blank
+
+7, Set character set to "####-######-#####"
+
+ ---- Generating here is done----
+
+8, If you have copied everything, paste them into a new sheet at sheets.google.com (so it will paste everything under each other)
+9, Now copy those from top to bottom and paste them into.. Check my checker thread for more info if you want to check the cards. Please note that it's about a 1 in a million chance that the code will work.

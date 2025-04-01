@@ -1,0 +1,12 @@
+
+
+pyAesCrypt is a Python 3 file-encryption module and script that uses AES256-CBC to encrypt/decrypt files and binary streams.
+
+
+pyAresCrypt : https://pypi.org/project/pyAesCrypt/
+
+Python3
+
+You can found the basic tutorial on this page https://pypi.org/project/pyAesCrypt/
+
+ENJOY!

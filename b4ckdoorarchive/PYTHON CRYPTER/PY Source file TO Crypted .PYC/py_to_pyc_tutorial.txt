@@ -1,0 +1,48 @@
+1]
+
+It is really simple! Just using the py_compile command.
+
+
+python -m compileall <file_1>.py <file_n>.py
+
+
+2]
+
+Using py_compile.compile:
+
+import py_compile
+py_compile.compile('YourFileName.py')
+
+Save and run! et voilÃ  .pyc
+
+3]
+
+Using py_compile.main():
+
+It compiles several files at a time.
+
+import py_compile
+py_compile.main(['File1.py','File2.py','File3.py'])
+The list can grow as long as you wish. Alternatively, you can obviously pass a list of files in main or even file names in command line args.
+
+Or, if you pass ['-'] in main then it can compile files interactively.
+
+4]
+
+Using compileall.compile_dir():
+
+import compileall
+compileall.compile_dir(direname)
+
+5]
+
+Using compileall.compile_file():
+
+import compileall
+compileall.compile_file('YourFileName.py')
+
+---------------------------------------------------------
+
+THERE ARE ALL WAY TO CRYPT .PY PYTHON SOURCE FILE TO .PYC .
+
+-by B4ckdoor. www.b4ckdoorarchive.host
