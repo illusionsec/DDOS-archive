@@ -1,0 +1,6 @@
+bulletvm.net - allowed: scan / botnet 
+fdcservers.net - allowed: spoof / scan 
+privatelayer.com - allowed: scan / botnet 
+mivocloud.net - allowed: botnet  
+maxko-hosting.com - allowed: botnet 
+privatealps.net - allowed: botnet / scan
