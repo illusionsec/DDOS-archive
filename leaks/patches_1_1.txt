@@ -1,0 +1,29 @@
+#\kill-all & UDPRAPE Patches
+
+iptables -A INPUT -m state --state RELATED,ESTABLISHED -m limit --limit 10/sec --limit-burst 15 -j ACCEPT
+
+iptables -A INPUT -p tcp --sport 80 --syn -m state --state NEW -m limit --limit 10/sec --limit-burst 15 -j ACCEPT
+
+
+iptables -t mangle -I PREROUTING -p tcp --tcp-flags SYN,ACK SYN,ACK --sport 443 --dport 30000:60000 -m length --length 44 -m string --hex-string '|00004000|' --algo kmp -j DROP 
+
+
+iptables -t mangle -I PREROUTING -p tcp --tcp-flags SYN,ACK SYN,ACK --sport 80 --dport 30000:60000 -m length --length 44 -m string --hex-string '|00004000|' --algo kmp -j DROP 
+
+
+iptables -t mangle -I PREROUTING -p tcp --tcp-flags SYN,ACK SYN,ACK --sport 443 --dport 30000:60000 -m length --length 0 -m string --hex-string '|00004000|' --algo kmp -j DROP 
+
+
+iptables -t mangle -I PREROUTING -p tcp --tcp-flags SYN,ACK SYN,ACK --sport 443 --dport 30000:60000 -m length --length 60 -m string --hex-string '|00004000|' --algo kmp -j DROP 
+
+
+iptables -t mangle -I PREROUTING -p tcp --tcp-flags SYN,ACK SYN,ACK --sport 80 --dport 30000:60000 -m length --length 0 -m string --hex-string '|00004000|' --algo kmp -j DROP 
+
+
+iptables -t mangle -I PREROUTING -p tcp --tcp-flags SYN,ACK SYN,ACK --sport 80 --dport 30000:60000 -m length --length 60 -m string --hex-string '|00004000|' --algo kmp -j DROP 
+iptables -t mangle -A PREROUTING -p tcp --sport 80  -m length --length 60 -j DROP
+iptables -t mangle -A PREROUTING -p tcp --sport 80  -m length --length 0 -j DROP
+iptables -t mangle -A PREROUTING -p tcp --sport 443  -m length --length 60 -j DROP
+iptables -t mangle -A PREROUTING -p tcp --sport 443  -m length --length 0 -j DROP
+iptables -t mangle -A PREROUTING -p tcp --sport 443  -m length --length 44 -j DROP
+iptables -t mangle -A PREROUTING -p tcp --sport 80  -m length --length 0 -j DROP

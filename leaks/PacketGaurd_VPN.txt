@@ -1,0 +1,273 @@
+-------------------------------------------------------------------------------------------------------------------------------------------
+1st thing u wanna do is change your ssh port 
+
+sudo nano /etc/ssh/sshd_config
+
+change it to port 1337
+
+save it and then exit
+
+sudo service ssh restart
+
+now connect using port 1337
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+2nd port scan shit
+
+iptables -A INPUT -p udp -m udp --dport 56550:56600 -j DROP
+iptables -A INPUT -p udp -s 66.70.214.169 --dport 56559 -j DROP
+iptables -A INPUT -p icmp -s 66.70.214.169 -j DROP
+iptables -A INPUT -p udp -s 66.70.214.169 --dport 56560 -j DROP
+iptables -A INPUT -p udp -s 66.70.214.169 --dport 56500:56599 -j DROP
+iptables -A INPUT -p udp -s 66.70.214.169 --dport 56559 -j DROP
+iptables -A INPUT -p udp -s 47.90.210.55/30 --dport 55600:55700 -j DROP
+iptables -A INPUT -p udp -s 185.40.20.149/30 --dport 55600:55700 -j DROP
+iptables -A INPUT -p udp -s 188.17.147.227/30 --sport 55900:56000 -j DROP
+iptables -A INPUT -p udp -s 47.90.210.55/30 --sport 59300:59400 -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65500 --match string --algo kmp --hex-string '|b9 41 02 9e cb 41 5d 18 7c 2a 22 57 44 16 8c 34|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65500 --match string --algo kmp --hex-string '|ce ff ed 0e 12 49 c9 e2 15 1d 31 1b 4f 92 5c 92|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65500 --match string --algo kmp --hex-string '|5b d6 0f 55 51 ea ed 03 26 28 77 b7 52 a7 e4 47|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65500 --match string --algo kmp --hex-string '|61 c5 69 75 88 23 c9 7d af 4a f5 2a 4d 53 24 55|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65500 --match string --algo kmp --hex-string '|de cb fb 6d b7 f3 5d 4e b0 85 ab 76 41 98 1c bb|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65500 --match string --algo kmp --hex-string '|d3 ea c5 3c de 5c a9 78 29 d8 99 99 2c 75 cc 78|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65500 --match string --algo kmp --hex-string '|40 20 c7 e4 fd 5d ad fa 1a 42 bf 95 0f e9 34 8e|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65500 --match string --algo kmp --hex-string '|25 6f 01 63 15 f5 6a d3 84 c5 1d 69 ea f6 55 fc|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65500 --match string --algo kmp --hex-string '|82 d6 73 bb 24 26 de 05 65 5f b3 14 bd 9b 2d c1|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65500 --match string --algo kmp --hex-string '|57 54 1e eb 2b ee 0a 8f be 12 82 98 88 d7 bd df|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65500 --match string --algo kmp --hex-string '|a4 eb 00 f2 2a 4f ee 70 8f dd 88 f4 4b ac 05 54|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65500 --match string --algo kmp --hex-string '|6a 9a 1a d2 21 48 8a aa d8 bf c6 27 06 18 05 22|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65500 --match string --algo kmp --hex-string '|a7 60 6c 8a 10 d8 de 3b 99 ba 3c 33 ba 1d bd 48|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65500 --match string --algo kmp --hex-string '|5c 3f f6 19 f7 01 ea 25 d2 cd ea 16 65 ba 2d c5|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65500 --match string --algo kmp --hex-string '|89 35 b8 81 d6 c2 ae 67 83 f7 d0 d2 08 ee 55 9b|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65500 --match string --algo kmp --hex-string '|2e 44 b2 c0 ae 1a 2b 00 ad 3a ee 66 a3 bb 36 c9|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65500 --match string --algo kmp --hex-string '|4b 6b e4 d8 7d 0b 5f f2 4e 94 44 d1 36 20 ce 4e|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65500 --match string --algo kmp --hex-string '|e0 a9 4f c8 44 93 4b 3c 67 07 d3 15 c1 1c 1e 2c|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65500 --match string --algo kmp --hex-string '|ed 00 f1 8f 03 b4 ef dd f8 92 99 31 44 b1 26 61|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65500 --match string --algo kmp --hex-string '|73 6f cb 2f ba 6d 4b d7 01 34 97 24 bf dd e6 ef|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65500 --match string --algo kmp --hex-string '|70 f5 dd a7 69 bd 5f 28 82 ef cd f0 33 a2 5e d5|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65500 --match string --algo kmp --hex-string '|e5 94 27 f6 10 a6 2b d2 7b c2 3b 93 9e ff 8e 12|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65500 --match string --algo kmp --hex-string '|d2 4a a9 1e af 27 af d4 ec ac e1 0f 01 f3 76 a8|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65500 --match string --algo kmp --hex-string '|37 19 63 1d 47 3f ec 2d d6 af bf 63 5c 80 17 96|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65500 --match string --algo kmp --hex-string '|43 d1 e7 eb d9 33 04 08 5e cf d5 8e af a5 6f db|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65500 --match string --algo kmp --hex-string '|04 1c 0f f2 40 00 6f 11 0b 0a 2f 5a d2 37 a7 72|' -j DROP
+iptables -I INPUT 1 -p udp --dport 1:65535 --match string --algo kmp --hex-string '|fa 16 3e c9 4f 58 46 16 25 83 cf 0c 08 00 45 00|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65535 --match string --algo kmp --hex-string '|fa 16 3e c9 4f 58 46 16 25 83 cf 0c 08 00 45 00|' -j DROP
+iptables -I INPUT 1 -p udp --dport 1:65535 --match string --algo kmp --hex-string '|00 6c 1d 18 00 b9 78 11 20 7d 42 46 d6 a9 a7 72|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65535 --match string --algo kmp --hex-string '|00 6c 1d 18 00 b9 78 11 20 7d 42 46 d6 a9 a7 72|' -j DROP
+iptables -I INPUT 1 -p udp --dport 1:65535 --match string --algo kmp --hex-string '|43 d1 c0 9d 12 cc 0a da ca b0 ae 0c 0a 46 e7 0c|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65535 --match string --algo kmp --hex-string '|43 d1 c0 9d 12 cc 0a da ca b0 ae 0c 0a 46 e7 0c|' -j DROP
+iptables -I INPUT 1 -p udp --dport 1:65535 --match string --algo kmp --hex-string '|c9 26 6a 32 7f 67 72 55 25 a1 b4 cd 32 ee 6a 73|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65535 --match string --algo kmp --hex-string '|c9 26 6a 32 7f 67 72 55 25 a1 b4 cd 32 ee 6a 73|' -j DROP
+iptables -I INPUT 1 -p udp --dport 1:65535 --match string --algo kmp --hex-string '|9f e3 4c 9e e4 9a 91 27 f8 ab f2 65 53 2d a6 31|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65535 --match string --algo kmp --hex-string '|9f e3 4c 9e e4 9a 91 27 f8 ab f2 65 53 2d a6 31|' -j DROP
+iptables -I INPUT 1 -p udp --dport 1:65535 --match string --algo kmp --hex-string '|ee b9 66 e2 41 66 69 51 43 cc 68 d6 6c 04 9a 47|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65535 --match string --algo kmp --hex-string '|ee b9 66 e2 41 66 69 51 43 cc 68 d6 6c 04 9a 47|' -j DROP
+iptables -I INPUT 1 -p udp --dport 1:65535 --match string --algo kmp --hex-string '|b5 a6 b8 ff 96 c9 f9 d4 06 06 16 1e 7d 74 46 b6|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65535 --match string --algo kmp --hex-string '|b5 a6 b8 ff 96 c9 f9 d4 06 06 16 1e 7d 74 46 b6|' -j DROP
+iptables -I INPUT 1 -p udp --dport 1:65535 --match string --algo kmp --hex-string '|f4 ab 42 f3 e2 c4 41 ae 40 57|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65535 --match string --algo kmp --hex-string '|f4 ab 42 f3 e2 c4 41 ae 40 57|' -j DROP
+iptables -I INPUT 1 -p udp --dport 1:65535 --match string --algo kmp --hex-string '|43 d1 70 69 b0 8c 62 ff 1f c1 7b 67 c1 e2 b4 39|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65535 --match string --algo kmp --hex-string '|43 d1 70 69 b0 8c 62 ff 1f c1 7b 67 c1 e2 b4 39|' -j DROP
+iptables -I INPUT 1 -p udp --dport 1:65535 --match string --algo kmp --hex-string '|4f 4a 85 8c 00 cf e5 f9 8d c9 4c 97 2d 11 b3 fe|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65535 --match string --algo kmp --hex-string '|4f 4a 85 8c 00 cf e5 f9 8d c9 4c 97 2d 11 b3 fe|' -j DROP
+iptables -I INPUT 1 -p udp --dport 1:65535 --match string --algo kmp --hex-string '|99 fe 91 47 08 69 df 0a 33 a9 15 5e 51 97 2a dc|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65535 --match string --algo kmp --hex-string '|99 fe 91 47 08 69 df 0a 33 a9 15 5e 51 97 2a dc|' -j DROP
+iptables -I INPUT 1 -p udp --dport 1:65535 --match string --algo kmp --hex-string '|1b 8b 96 9b c8 5b 52 33 11 62 d6 bd 2d 76 19 d1|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65535 --match string --algo kmp --hex-string '|1b 8b 96 9b c8 5b 52 33 11 62 d6 bd 2d 76 19 d1|' -j DROP
+iptables -I INPUT 1 -p udp --dport 1:65535 --match string --algo kmp --hex-string '|d5 ef 93 86 40 a6 3d 75 26 f2 8f b5 c1 ac 80 de|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65535 --match string --algo kmp --hex-string '|d5 ef 93 86 40 a6 3d 75 26 f2 8f b5 c1 ac 80 de|' -j DROP
+iptables -I INPUT 1 -p udp --dport 1:65535 --match string --algo kmp --hex-string '|c6 2b 88 0a 70 48 a0 ce 74 5a|' -j DROP
+iptables -I INPUT 1 -p udp --sport 1:65535 --match string --algo kmp --hex-string '|c6 2b 88 0a 70 48 a0 ce 74 5a|' -j DROP
+ 
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+3rd step ( if u want to whitelist your home)
+iptables -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+iptables -A INPUT -s 97.100.183.22/32 -p tcp -m tcp --dport 22 -j ACCEPT
+iptables -A INPUT -s 97.100.183.22/32 -p tcp -m tcp --dport 22 -j ACCEPT
+iptables -A INPUT -s 97.100.183.22/32 -p tcp -m tcp --dport 22 -j ACCEPT
+iptables -A INPUT -s 97.100.183.22/32 -p tcp -m tcp --dport 22 -j ACCEPT
+iptables -A INPUT -s 1.1.1.1/32 -p udp -m udp --sport 53 -j ACCEPT
+iptables -A INPUT -s 1.0.0.1/32 -p udp -m udp --sport 53 -j ACCEPT
+iptables -A INPUT -s 8.8.8.8/32 -p udp -m udp --sport 53 -j ACCEPT
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+4TH STEP rate limiting ssh
+
+
+iptables -I INPUT -p tcp --dport 8686 -i eth0 -m state --state NEW  -m recent --set
+iptables -I INPUT -p tcp --dport 8686 -i eth0 -m state --state NEW -m recent  --update --seconds 50 --hitcount 3 -j DROP
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+[drop shit]
+iptables -A INPUT -p udp -m udp --sport 53 -j DROP
+iptables -A PREROUTING -m conntrack --ctstate INVALID -j DROP
+iptables -A PREROUTING -p tcp -m tcp --sport 57000:63000 --tcp-flags FIN,SYN,RST,PSH,ACK,URG ACK -m string --string "A-X" --algo bm --to 65535 -j DROP
+iptables -t mangle -A PREROUTING -p tcp ! --syn -m conntrack --ctstate NEW -j DROP
+iptables -A INPUT -p TCP --syn -m iplimit --iplimit-above 9 -j DROP
+iptables -A INPUT -m u32 --u32 "12&0xFFFF=0" -j DROP
+iptables -A INPUT -p udp -m u32 --u32 "22&0xFFFF=0x0008" -j DROP
+iptables -A INPUT -p udp -m u32 --u32 "26&0xFFFFFFFF=0xfeff" -j DROP
+iptables -A INPUT -m u32 --u32 "28&0x00000FF0=0xFEDFFFFF" -j DROP
+iptables -I INPUT -p udp -m length --length 100:140 -m string --string "nAFS" --algo kmp -j DROP
+iptables -t mangle -A PREROUTING -p udp --sport 3283 -m length --length 1048 -j DROP
+iptables -A INPUT -p tcp -m length --length 66 -j REJECT
+iptables -A INPUT -p tcp -m length --length 74 -j REJECT
+iptables -A INPUT -p tcp -m length --length 78 -j REJECT
+iptables -A INPUT -p tcp -m length --length 60 -j REJECT
+iptables -A INPUT -p tcp -m length --length 1400 -j REJECT
+iptables -A INPUT -p tcp -m length --length 65535 -j REJECT
+iptables -A INPUT -p udp -m multiport --dports 135,137,138,139,445,1433,1434,3074 -j DROP
+iptables -A INPUT -p tcp -m multiport --dports 135,137,138,139,445,1433,1434 -j DROP
+iptables -A INPUT -p udp -m multiport --sports 135,137,138,139,445,1433,1434 -j DROP
+iptables -A INPUT -p tcp -m multiport --sports 135,137,138,139,445,1433,1434 -j DROP 
+iptables -A INPUT -p udp -m multiport --dports 853,4433,4740,5349,5684,5868,6514,6636,8232,10161 -j DROP
+iptables -A INPUT -p tcp -m multiport --dports 853,4433,4740,5349,5684,5868,6514,6636,8232,10161 -j DROP
+iptables -A INPUT -p udp -m multiport --sports 853,4433,4740,5349,5684,5868,6514,6636,8232,10161 -j DROP
+iptables -A INPUT -p tcp -m multiport --sports 853,4433,4740,5349,5684,5868,6514,6636,8232,10161 -j DROP
+iptables -A INPUT -p udp -m multiport --dports 10162,12346,12446,12546,12646,12746,12846,12946,13046 -j DROP 
+iptables -A INPUT -p tcp -m multiport --dports 10162,12346,12446,12546,12646,12746,12846,12946,13046 -j DROP
+iptables -A INPUT -p udp -m multiport --sports 10162,12346,12446,12546,12646,12746,12846,12946,13046 -j DROP
+iptables -A INPUT -p tcp -m multiport --sports 10162,12346,12446,12546,12646,12746,12846,12946,13046 -j DROP
+iptables -A INPUT -p udp -m multiport --dports 1645,1812,2049,3283,2302,6481,17185,26000,26001,26002 -j DROP
+iptables -A INPUT -p tcp -m multiport --dports 1645,1812,2049,3283,2302,6481,17185,26000,26001,26002 -j DROP
+iptables -A INPUT -p udp -m multiport --sports 1645,1812,2049,3283,2302,6481,17185,26000,26001,26002 -j DROP
+iptables -A INPUT -p tcp -m multiport --sports 1645,1812,2049,3283,2302,6481,17185,26000,26001,26002 -j DROP
+iptables -A INPUT -p udp -m multiport --dports 26003,26004,27960,27961,27962,27963,27964,30720,30721 -j DROP
+iptables -A INPUT -p tcp -m multiport --dports 26003,26004,27960,27961,27962,27963,27964,30720,30721 -j DROP
+iptables -A INPUT -p udp -m multiport --sports 26003,26004,27960,27961,27962,27963,27964,30720,30721 -j DROP
+iptables -A INPUT -p tcp -m multiport --sports 26003,26004,27960,27961,27962,27963,27964,30720,30721 -j DROP
+iptables -A INPUT -p udp -m multiport --dports 30722,30723,30724,44400,3784,64378,8767,11211,1645,1812,520 -j DROP
+iptables -A INPUT -p tcp -m multiport --dports 30722,30723,30724,44400,3784,64378,8767,11211,1645,1812,520 -j DROP
+iptables -A INPUT -p udp -m multiport --sports 30722,30723,30724,44400,3784,64378,8767,11211,1645,1812,520 -j DROP
+iptables -A INPUT -p tcp -m multiport --sports 30722,30723,30724,44400,3784,64378,8767,11211,1645,1812,520 -j DROP
+iptables -A INPUT -p udp -m multiport --sports 3478,5349 -j DROP
+iptables -A INPUT -p tcp -m multiport --sports 3478,5349 -j DROP
+iptables -A PREROUTING -t mangle -p UDP -m multiport --sports  137,5351,1434,502,30718,500,6881,7001,177,17,32414,17185,3072,3702 -j DROP
+iptables -A PREROUTING -t mangle -p UDP -m multiport --sports 3283,3748,1604,41794,2362,443,30120,10001,1900,27036,5060,3389,111,1194,53413 -j DROP
+iptables -A PREROUTING -t mangle -p UDP -m multiport --sports 3478,5349 -j DROP
+iptables -A PREROUTING -t mangle -p TCP -m multiport --sports 3478,5349 -j DROP
+iptables -A PREROUTING -t mangle -p UDP -m multiport --sports 27015,123 -j DROP
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+[kernal]
+nano /etc/sysctl.conf /
+
+net.ipv4.tcp_slow_start_after_idle = 0
+net.ipv4.ip_local_port_range = 1024 65000
+net.ipv4.ip_no_pmtu_disc = 1
+net.ipv4.route.flush = 1
+net.ipv4.icmp_echo_ignore_broadcasts = 1
+net.ipv4.icmp_ignore_bogus_error_responses = 1
+net.ipv4.tcp_rmem = 4096 87380 33554432
+net.ipv4.udp_rmem_min = 16384
+net.ipv4.tcp_wmem = 4096 87380 33554432
+net.ipv4.udp_wmem_min = 16384
+net.ipv4.tcp_max_tw_buckets = 1440000
+net.ipv4.tcp_tw_reuse = 1
+net.ipv4.tcp_window_scaling = 1
+net.ipv4.tcp_adv_win_scale = 1
+net.ipv4.tcp_rfc1337 = 1
+net.ipv4.tcp_syncookies = 1
+net.ipv4.tcp_synack_retries = 1
+net.ipv4.tcp_syn_retries = 2
+net.ipv4.tcp_max_syn_backlog = 3400000
+net.ipv4.tcp_timestamps = 1
+net.ipv4.tcp_sack = 1
+net.ipv4.tcp_fack = 1
+net.ipv4.tcp_ecn = 2
+net.ipv4.tcp_fin_timeout = 5
+net.ipv4.tcp_keepalive_intvl = 30
+net.ipv4.tcp_keepalive_probes = 5
+net.ipv4.tcp_no_metrics_save = 1
+net.ipv4.ip_forward = 1
+net.ipv4.conf.all.accept_redirects = 0
+net.ipv4.conf.all.send_redirects = 0
+net.ipv4.conf.all.accept_source_route = 0
+net.ipv4.conf.all.log_martians = 1
+net.ipv4.conf.default.log_martians = 1
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+PATCHES
+
+
+iptables -t mangle -A PREROUTING -p udp -m multiport --sports 3283,37810,7001,17185,3072,3702,32414,177,6881,5683,41794,2362,11211,53413,17,1900,10001,389,137,5351,502 -j DROP
+ 
+
+iptables -t mangle -A PREROUTING -p udp --sport 37810 -j DROP 
+ 
+
+iptables -t mangle -A PREROUTING -p udp --sport 7001 -j DROP
+iptables -I INPUT -p udp -m length --length 100:140 -m string --string "nAFS" --algo kmp -j DROP
+iptables -I INPUT -p udp -m length --length 100:140 -m string --string "OpenAFS" --algo kmp -j DROP
+ 
+
+iptables -t mangle -A PREROUTING -p udp --sport 17185 -j DROP
+ 
+
+iptables -t mangle -A PREROUTING -p udp -m multiport --sports 3072,3702 -j DROP
+iptables -t mangle -A PREROUTING -p tcp -m multiport --sports 3072,3702 -j DROP
+ 
+
+iptables -t mangle -A PREROUTING -p udp --sport 3283 -m length --length 1048 -j DROP
+ 
+ 
+iptables -t mangle -A PREROUTING -p udp --sport 3283 -m length --length 1048 -j DROP
+ 
+
+iptables -t mangle -A PREROUTING -p udp --sport 32414 -j DROP
+
+iptables -t mangle -A PREROUTING -p udp --sport 177 -j DROP 
+ 
+
+iptables -t mangle -A PREROUTING -p udp --sport 6881 -m length --length 320:330 -j DROP
+ 
+
+iptables -t mangle -A PREROUTING -p udp -m length --length 280:300 --sport 32414 -j DROP
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+(EXTRA)
+
+
+
+iptables -A INPUT -p udp -m u32 --u32 "22&0xFFFF=0x0008" -j DROP
+iptables -A INPUT -m u32 --u32 "12&0xFFFF=0xFFFF" -j DROP
+iptables -A INPUT -m u32 --u32 "28&0x00000FF0=0xFEDFFFFF" -j DROP
+iptables -A INPUT -m string --algo bm --from 28 --to 29 --string "farewell" -j DROP
+iptables -A INPUT -p udp -m u32 --u32 "28 & 0x00FF00FF = 0x00200020 && 32 & 0x00FF00FF = 0x00200020 && 36 & 0x00FF00FF = 0x00200020 && 40 & 0x00FF00FF = 0x00200020" -j DROP
+iptables -I INPUT -p tcp -m tcp -m string --hex-string "|000000005010|" --algo kmp --from 28 --to 29 -m length --length 40 -j DROP
+iptables -I INPUT -p udp -m udp -m string --hex-string "|53414d50|" --algo kmp --from 28 --to 29 -j DROP
+iptables -I INPUT -p udp -m udp -m string --hex-string "|7374640000000000|" --algo kmp --from 28 --to 29 -j DROP
+iptables -I INPUT -p udp -m udp -m string --hex-string "|00000000000000000000000000000000|" --algo kmp --from 32 --to 33 -j DROP
+iptables -A INPUT -p udp -m udp -m string --algo bm --from 32 --to 33 --string "AAAAAAAAAAAAAAAA" -j DROP
+iptables -A INPUT -p udp -m udp -m string --algo bm --from 28 --to 29 --string "0123456789ABCDE" -j DROP
+iptables -A INPUT -m u32 --u32 "12&0xFFFF=0" -j DROP
+iptables -A INPUT -p udp -m u32 --u32 "26&0xFFFFFFFF=0xfeff" -j DROP
+iptables -A INPUT -p udp -m udp -m string --algo bm --from 44 --to 45 --string "0123456789" -j DROP
+iptables -A INPUT -p udp -m udp -m string --algo bm --from 28 --to 29 --string "A cat is fine too" -j DROP
+iptables -A INPUT -p udp -m udp -m string --algo bm --from 28 --to 29 --string "flood" -j DROP
+iptables -A INPUT -m string --algo bm --from 32 --to 33 --string "q00000000000000" -j DROP
+iptables -A INPUT -m string --algo bm --from 32 --to 33 --string "statusResponse" -j DROP
+iptables -A INPUT -p icmp -j DROP
+iptables -A INPUT -i lo -p udp --destination-port 123 -j DROP
+iptables -A INPUT -p udp --source-port 123:123 -m state --state ESTABLISHED -j DROP
+iptables -I INPUT -p udp -m udp -m string --hex-string "|ffffffff6765746368616c6c656e676520302022|" --algo kmp -j DROP
+iptables -I INPUT -p udp --dport 16000:29000 -m string --to 75 --algo bm --string 'HTTP/1.1 200 OK' -j DROP
+iptables -A INPUT -p udp -m u32 --u32 "6&0xFF=0,2:5,7:16,18:255" -j DROP
+
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+
+sysctl -p
+iptables-save
+
+if u want to u can add this 
+
+
+iptables -A OUTPUT -p udp -m state --state NEW -j ACCEPT
+iptables -A OUTPUT -p udp -m limit --limit 10000/s -j ACCEPT
+iptables -A OUTPUT -p udp -j DROP

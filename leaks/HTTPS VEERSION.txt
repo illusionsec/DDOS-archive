@@ -1,0 +1,1 @@
+(http.request.version eq "HTTP/1.0" and http.request.version eq "HTTP/1.1" and http.request.version eq "HTTP/1.2")

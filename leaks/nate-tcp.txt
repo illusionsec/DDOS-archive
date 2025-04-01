@@ -1,0 +1,121 @@
+Vaukia, [8/2/2023 4:39 PM]
+iptables -P INPUT ACCEPT
+iptables -P FORWARD ACCEPT
+iptables -P OUTPUT ACCEPT
+iptables -t nat -F
+iptables -t raw -F
+iptables -t mangle -F
+iptables -F
+iptables -X
+
+# create ipsets
+ipset create allow hash:ip timeout 0
+ipset create check hash:ip timeout 20
+
+# whitelists in raw
+iptables -t raw -A PREROUTING -s HOME -p tcp -m tcp --dport 22 -j ACCEPT
+iptables -t raw -A PREROUTING -s 10.8.0.0/24 -p tcp --dport 22 -j ACCEPT
+iptables -t raw -A PREROUTING -p tcp --dport 22 -j DROP
+
+# accept required traffic in raw
+iptables -t raw -A PREROUTING -i lo -j ACCEPT
+iptables -t raw -A PREROUTING -i tun+ -j ACCEPT
+
+# drop unneeded protocols
+iptables -t raw -A PREROUTING -p icmp -j DROP
+iptables -t raw -A PREROUTING -p gre -j DROP
+iptables -t raw -A PREROUTING -p esp -j DROP
+iptables -t raw -A PREROUTING -p ah -j DROP
+
+# handle ipset
+iptables -t raw -A PREROUTING -m set --match-set allow src -j ACCEPT
+
+# accept 2 syn per second per ip to 1194 in raw
+iptables -t raw -A PREROUTING -p tcp --dport 1194 --syn -m conntrack --ctstate NEW -m hashlimit --hashlimit-upto 2/sec --hashlimit-burst 2 --hashlimit-mode srcip --hashlimit-name accept-syn -j ACCEPT
+
+# whitelists in mangle
+iptables -t mangle -A PREROUTING -s HOME -p tcp -m tcp --dport 22 -j ACCEPT
+iptables -t mangle -A PREROUTING -s 10.8.0.0/24 -p tcp --dport 22 -j ACCEPT
+
+# accept required traffic in mangle
+iptables -t mangle -A PREROUTING -i lo -j ACCEPT
+iptables -t mangle -A PREROUTING -i tun+ -j ACCEPT
+
+# drop all new non syn packets
+iptables -t mangle -A PREROUTING -p tcp ! --syn -m conntrack --ctstate NEW -j DROP
+
+# drop all invalid packets
+iptables -t mangle -A PREROUTING -m conntrack --ctstate INVALID -j DROP
+
+# accept 2 syn per second per ip to 1194
+iptables -t mangle -A PREROUTING -p tcp --dport 1194 --syn -m conntrack --ctstate NEW -m hashlimit --hashlimit-upto 2/sec --hashlimit-burst 2 --hashlimit-mode srcip --hashlimit-srcmask 32 --hashlimit-name accept-syn -j ACCEPT
+
+# accept related and established
+iptables -t mangle -A PREROUTING -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+
+3 set policy to drop
+iptables -t mangle -P PREROUTING DROP
+
+# add all pdata v2 matching packets to allow ipset
+iptables -A INPUT -m bpf --bytecode "19,48 0 0 0,84 0 0 240,21 0 4 96,48 0 0 6,21 0 13 6,40 0 0 42,21 10 11 1194,48 0 0 0,84 0 0 240,21 0 8 64,48 0 0 9,21 0 6 6,40 0 0 6,69 4 0 8191,177 0 0 0,72 0 0 2,21 0 1 1194,6 0 0 262144,6 0 0 0" -m conntrack --ctstate ESTABLISHED -m connbytes --connbytes 100 --connbytes-mode packets --connbytes-dir reply -j SET --add-set allow src
+
+# add control hard reset matching packets to check ipset
+iptables -A INPUT -p tcp -m bpf --bytecode "30,48 0 0 0,84 0 0 240,21 26 0 96,48 0 0 0,84 0 0 240,21 0 23 64,48 0 0 9,21 0 21 6,40 0 0 6,69 19 0 8191,177 0 0 0,72 0 0 2,21 0 16 1194,40 0 0 2,53 0 14 96,37 13 0 110,80 0 0 13,21 0 11 24,72 0 0 14,37 9 0 7000,80 0 0 22,21 0 2 56,64 0 0 32,21 4 0 356,80 0 0 34,21 0 3 56,64 0 0 44,21 0 1 356,6 0 0 65535,6 0 0 0" -j SET --add-set check src
+
+# reject all ack not from check ipset
+iptables -A INPUT -p tcp --dport 1194 --tcp-flags ACK ACK -m set ! --match-set allow src -m set ! --match-set check src -j REJECT --reject-with tcp-rst
+
+# set a conlimit to 2 connections per ip to 1194
+iptables -A INPUT -p tcp --dport 1194 -m conntrack --ctstate ESTABLISHED -m connlimit --connlimit-above 2 --connlimit-mask 32 --connlimit-saddr -m set ! --match-set allow src -j REJECT
+
+# route all web traffic to second ip
+iptables -t nat -I POSTROUTING -s 10.8.0.0/24 ! -d 10.8.0.0/24 -j SNAT --to-source WEBTRAFFICIP
+iptables -t nat -I POSTROUTING -p tcp --dport 80 -j SNAT --to-source WEBTRAFFICIP
+iptables -t nat -I POSTROUTING -p tcp --dport 443 -j SNAT --to-source WEBTRAFFICIP
+iptables -t nat -I POSTROUTING -p tcp --dport 8080 -j SNAT --to-source WEBTRAFFICIP
+
+Vaukia, [8/2/2023 4:39 PM]
+nano /etc/sysctl.conf
+
+
+scroll all the way down to the bottom and paste
+
+
+
+
+
+net.netfilter.nf_conntrack_max = 1000000000
+net.netfilter.nf_conntrack_buckets = 100000000
+net.netfilter.nf_conntrack_expect_max = 100000000
+net.netfilter.nf_conntrack_udp_timeout = 15
+net.netfilter.nf_conntrack_tcp_timeout_established = 1800
+net.netfilter.nf_conntrack_tcp_timeout_close_wait = 5
+net.netfilter.nf_conntrack_tcp_timeout_fin_wait =5
+net.netfilter.nf_conntrack_tcp_timeout_last_ack = 1
+net.netfilter.nf_conntrack_tcp_timeout_syn_recv = 5
+net.netfilter.nf_conntrack_tcp_timeout_time_wait = 5
+net.core.netdev_max_backlog = 1048676
+net.core.somaxconn = 131071
+net.core.optmem_max = 60331648
+net.ipv4.tcp_max_syn_backlog = 1000000000
+net.ipv4.tcp_syncookies = 1
+net.ipv4.tcp_syn_retries = 2
+net.ipv4.tcp_synack_retries = 2
+net.ipv4.tcp_max_orphans = 131072
+net.netfilter.nf_conntrack_udp_timeout = 30
+net.netfilter.nf_conntrack_tcp_timeout_time_wait = 5
+net.ipv4.tcp_syncookies = 1
+net.netfilter.nf_conntrack_tcp_timeout_syn_recv = 5
+
+net.core.default_qdisc=fq
+net.ipv4.tcp_congestion_control=bbr
+
+
+
+CTRL O 
+Enter
+CTRL X
+
+
+
+sysctl -p

@@ -1,0 +1,49 @@
+Change:
+nano /etc/ssh/sshd_config
+LoginGraceTime 30s
+MaxAuthTries 3
+MaxSessions 99999
+MaxStartups 500000
+
+
+nano /etc/sysctl.conf /
+net.ipv4.icmp_echo_ignore_all = 1
+net.netfilter.nf_conntrack_max = 20000000
+net.core.somaxconn = 20000000
+net.netfilter.nf_conntrack_tcp_timeout_established = 10
+
+systemctl restart ssh
+sysctl -p
+sysctl -p /etc/sysctl.conf
+
+
+
+
+iptables -t mangle -A PREROUTING -p tcp -m length --length 74:400 --syn -m tcpmss --mss 1460 -m connlimit --connlimit-above 2 --connlimit-mask 16 -j DROP
+iptables -t raw -A PREROUTING -p tcp -m tcp --tcp-flags SYN,ACK,PSH,RST,FIN,URG SYN -m connlimit --connlimit-above 2 -j DROP
+iptables -A PREROUTING -t mangle -p tcp --dport 9900 -m state --state NEW -m recent --set
+iptables -A PREROUTING -t mangle -p tcp --dport 9900 -m state --state NEW -m recent --update --seconds 12 --hitcount 2 -j DROP
+
+iptables -t mangle -A PREROUTING -p tcp ! --syn -m conntrack --ctstate NEW -j DROP
+iptables -t mangle -A PREROUTING -m conntrack --ctstate INVALID -j DROP
+iptables -t mangle -A PREROUTING -p tcp --syn -m conntrack --ctstate NEW -m tcpmss --mss 1453:1470 --dport 9900 -m connlimit --connlimit-above 2 -j DROP
+
+iptables -A INPUT -d 51.161.98.214/32 -p tcp -m tcp --dport 9900 --tcp-flags SYN,ACK SYN -m conntrack --ctstate NEW -m hashlimit --hashlimit-above 1/min --hashlimit-burst 3 --hashlimit-mode srcip --hashlimit-name rangelimit --hashlimit-htable-expire 300000 --hashlimit-srcmask 24 -j DROP
+
+
+iptables -t mangle -A PREROUTING -p tcp --dport 9900 -m state --state NEW -m bpf --bytecode "23,48 0 0 0,84 0 0 240,21 19 0 96,48 0 0 0,84 0 0 240,21 0 16 64,48 0 0 9,21 0 14 17,40 0 0 6,69 12 0 8191,177 0 0 0,72 0 0 2,21 0 9 1194,80 0 0 8,21 0 7 56,80 0 0 17,21 0 5 0,64 0 0 18,21 0 3 352,128 0 0 0,53 0 1 90,6 0 0 65535,6 0 0 0 " -m connlimit --connlimit-upto 1 --connlimit-mask 24  -j ACCEPT
+
+iptables -t mangle -A PREROUTING -p tcp -m tcp --tcp-flags SYN,ACK SYN -m multiport --dports 1:65535 -m conntrack --ctstate NEW -m hashlimit --hashlimit-upto 5/min --hashlimit-burst 2 --hashlimit-mode srcip --hashlimit-name portlimit --hashlimit-htable-expire 120000 --hashlimit-srcmask 24 -j ACCEPT
+
+
+
+iptables -t mangle -A PREROUTING -p tcp -m state --state NEW --syn --dport 9900 -m bpf --bytecode "50,0 0 0 0,48 0 0 8,37 46 0 128,37 0 45 93,48 0 0 0,84 0 0 15,21 0 42 5,48 0 0 9,21 0 40 6,40 0 0 6,69 38 0 8191,177 0 0 0,80 0 0 27,21 0 35 8,80 0 0 12,116 0 0 4,21 0 32 8,80 0 0 20,21 0 30 2,80 0 0 24,21 0 28 1,80 0 0 25,21 0 26 3,80 0 0 28,21 0 24 1,80 0 0 29,21 0 9900 1,80 0 0 30,21 0 20 4,48 0 0 6,69 0 18 64,69 17 0 128,40 0 0 2,2 0 0 15,48 0 0 0,84 0 0 15,36 0 0 4,7 0 0 0,96 0 0 15,28 0 0 0,2 0 0 3,177 0 0 0,80 0 0 12,116 0 0 4,36 0 0 4,7 0 0 0,96 0 0 3,29 0 1 0,6 0 0 65536,6 0 0 0," -m connlimit --connlimit-above 2 --connlimit-mask 16 -j DROP
+iptables -t mangle -A PREROUTING -p tcp -m state --state NEW --syn --dport 9900 -m bpf --bytecode "50,0 0 0 0,48 0 0 8,37 46 0 64,37 0 45 29,48 0 0 0,84 0 0 15,21 0 42 5,48 0 0 9,21 0 40 6,40 0 0 6,69 38 0 8191,177 0 0 0,80 0 0 27,21 0 35 8,80 0 0 12,116 0 0 4,21 0 32 8,80 0 0 20,21 0 30 2,80 0 0 24,21 0 28 1,80 0 0 25,21 0 26 3,80 0 0 28,21 0 24 1,80 0 0 29,21 0 9900 1,80 0 0 30,21 0 20 4,48 0 0 6,69 0 18 64,69 17 0 128,40 0 0 2,2 0 0 15,48 0 0 0,84 0 0 15,36 0 0 4,7 0 0 0,96 0 0 15,28 0 0 0,2 0 0 3,177 0 0 0,80 0 0 12,116 0 0 4,36 0 0 4,7 0 0 0,96 0 0 3,29 0 1 0,6 0 0 65536,6 0 0 0," -m connlimit --connlimit-upto 2 --connlimit-mask 24 -j ACCEPT
+iptables -t mangle -A PREROUTING -p tcp -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+iptables -t mangle -P PREROUTING DROP
+
+iptables --new-chain limit-by-ip-chain
+iptables -A limit-by-ip-chain -m hashlimit --hashlimit-upto 10/sec --hashlimit-burst 20 --hashlimit-mode srcip --hashlimit-name per_ip_conn_rate_limit -j ACCEPT
+iptables -A limit-by-ip-chain -j DROP
+iptables -A limit-by-ip-chain -m hashlimit --hashlimit-upto 10/sec --hashlimit-burst 5 --hashlimit-mode srcip --hashlimit-name per_ip_conn_rate_limit -j ACCEPT
+iptables -A limit-by-ip-chain -j DROP

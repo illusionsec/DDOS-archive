@@ -1,0 +1,12 @@
+first step: buy a domain
+
+Second step: get a bunch of IP's from 100up or some
+
+Thrid step: go into yo domain panel and add all the IP's you proxied using the tables below into the dns records thanks that is all.
+
+sysctl -w net.ipv4.ip_forward=1
+iptables -A FORWARD -i eth0 -j ACCEPT
+iptables -A FORWARD -o eth0 -j ACCEPT
+iptables -I FORWARD -i eth0 -p tcp --dport NETPORT -j ACCEPT
+iptables -t nat -A PREROUTING -p tcp --dport NETPORT -j DNAT --to-destination NETIP:NETPORT
+iptables -t nat -A POSTROUTING -j MASQUERADE

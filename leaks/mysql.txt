@@ -1,0 +1,4 @@
+CREATE DATABASE `don't matter name`;
+CREATE USER 'don't matter username'@'localhost' IDENTIFIED BY 'don't matter password';
+GRANT ALL PRIVILEGES ON * . * TO 'type the username you entered'@'localhost';
+FLUSH PRIVILEGES;"

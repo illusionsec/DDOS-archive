@@ -1,0 +1,539 @@
+
+----------------------------------------------------------------------------------------
+iptables -A INPUT -p udp -m string --algo bm --hex-string "|5354445041434b4554|" -j DROP
+  iptables -A INPUT -m u32 --u32 "28&0x00000FF0=0xFEDFFFFF" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|535444|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|554450|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|54484953204953204546464543544956452e20594f552043414e4e4f542053554253494445204d5920444154412e|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|4b494c4c4b494c4c4b494c4c4b494c4c4b494c4c4b494c4c|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|4445415448444541544844454154484445415448425942314e415259|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|44444f5344444f5344444f53|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|4d4f354f4e354f4e354f4e354f4a354e4835563555|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|544350|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|4845584154544b212121212121|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|424f544e4554|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|424f4f5445524e4554|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|41545441434b|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|504f574552|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|6c6e6f6172656162756e63686f66736b696464696573|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|736b6964|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|736b69646e6574|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|4a554e4b2041545441434b|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|4a554e4b20464c4f4f44|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|484f4c442041545441434b|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|534554484946594f554445434f4445544849534f4e45594f554152455355434841464147484548454845|" -j DROP # hehehe
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|434e43|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|434e432041545441434b|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|434e4320464c4f4f44|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|4841434b4552|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|4841434b|" -j DROP
+iptables -A INPUT -m u32 --u32 "12&0xFFFF=0xFFFF" -j DROP
+  iptables -A INPUT -m string --algo bm --from 28 --to 29 --string "farewell" -j DROP
+  iptables -I INPUT -p tcp -m tcp -m string --hex-string "|000000005010|" --algo kmp --from 28 --to 29 -m length --length 40 -j DROP
+  iptables -I INPUT -p udp -m udp -m string --hex-string "|53414d50|" --algo kmp --from 28 --to 29 -j DROP
+  iptables -A INPUT -p udp -m udp -m string --algo bm --from 32 --to 33 --string "AAAAAAAAAAAAAAAA" -j DROP
+  iptables -A INPUT -m string --algo bm --from 32 --to 33 --string "q00000000000000" -j DROP
+  iptables -A INPUT -m string --algo bm --from 32 --to 33 --string "statusResponse" -j DROP #SSDP Flood I have seen recently its a patch for it even though OVH picks most the traffic up 
+  iptables -A INPUT -p udp -m length --length 1025 -j DROP
+  iptables -A INPUT -p udp --dport 61327 -j DROP 
+iptables -A INPUT -p udp --source-port 123:123 -m state --state ESTABLISHED -j DROP #NTP ISSUE FIX
+---------------------------------------------------------------------------------------------------
+
+iptables -t nat -F
+iptables -t nat -X
+iptables -t mangle -F
+iptables -t mangle -X
+iptables -A INPUT -p udp --dport 9987 -j ACCEPT
+iptables -A INPUT -p udp --sport 9987 -j ACCEPT
+iptables -A INPUT -p udp --dport 9988 -j ACCEPT
+iptables -A INPUT -p udp --sport 9988 -j ACCEPT
+iptables -A INPUT -p tcp --dport 30033 -j ACCEPT
+iptables -A INPUT -p tcp --sport 30033 -j ACCEPT
+iptables -A INPUT -p tcp --dport 10011 -j ACCEPT
+iptables -A INPUT -p tcp --sport 10011 -j ACCEPT
+iptables -A INPUT -p tcp --dport 41144 -j ACCEPT
+iptables -A INPUT -p tcp --sport 41144 -j ACCEPT
+iptables -A INPUT -p tcp --dport 2010 -j ACCEPT
+iptables -A INPUT -p tcp --sport 2010 -j ACCEPT
+iptables -A INPUT -p tcp --dport 2011 -j ACCEPT
+iptables -A INPUT -p tcp --sport 2011 -j ACCEPT
+iptables -A INPUT -p tcp --dport 2008 -j ACCEPT
+iptables -A INPUT -p tcp --sport 2008 -j ACCEPT
+iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+iptables -A INPUT -p tcp --sport 80 -j ACCEPT
+iptables -A INPUT -p tcp --dport 8087 -j ACCEPT
+iptables -A INPUT -p tcp --sport 8087 -j ACCEPT
+iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+iptables -A INPUT -p tcp --sport 443 -j ACCEPT
+iptables -A INPUT -p tcp --dport 21 -j ACCEPT
+iptables -A INPUT -p tcp --sport 21 -j ACCEPT
+iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+iptables -A INPUT -p tcp --sport 22 -j ACCEPT
+iptables -A INPUT -p udp --dport 53 -j ACCEPT
+iptables -A INPUT -p udp --sport 53 -j ACCEPT
+iptables -A OUTPUT -p udp -d weblist.teamspeak.com --dport 2010 -j ACCEPT
+iptables -A OUTPUT -p tcp -d accounting.teamspeak.com --dport 2008 -j ACCEPT
+iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT ACCEPT
+iptables -I INPUT -s 109.51.48.210 -j DROP
+iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A INPUT -p tcp -m tcp --tcp-flags FIN,ACK FIN -j DROP
+iptables -A INPUT -p tcp -m tcp --tcp-flags PSH,ACK PSH -j DROP
+iptables -A INPUT -p tcp -m tcp --tcp-flags ACK,URG URG -j DROP
+iptables -A INPUT -p tcp -m tcp --tcp-flags FIN,RST FIN,RST -j DROP
+iptables -A INPUT -p tcp -m tcp --tcp-flags FIN,SYN FIN,SYN -j DROP
+iptables -A INPUT -p tcp -m tcp --tcp-flags SYN,RST SYN,RST -j DROP
+iptables -A INPUT -p tcp -m tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG FIN,SYN,RST,PSH,ACK,URG -j DROP
+iptables -A INPUT -p tcp -m tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG NONE -j DROP
+iptables -A INPUT -p tcp -m tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG FIN,PSH,URG -j DROP
+iptables -A INPUT -p tcp -m tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG FIN,SYN,PSH,URG -j DROP
+iptables -A INPUT -p tcp -m tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG FIN,SYN,RST,ACK,URG -j DROP
+iptables -A INPUT -f -j DROP
+iptables -A INPUT -p udp -m udp --sport 19 -j DROP
+iptables -A INPUT -p udp -m udp --sport 123 -j DROP
+iptables -A INPUT -p udp -m udp --sport 161 -j DROP
+iptables -A INPUT -p udp -m udp --sport 1433 -j DROP
+iptables -A INPUT -p udp -m udp --sport 1900 -j DROP
+iptables -A INPUT -p udp -m udp --sport 27015 -j DROP
+iptables -A INPUT -p udp -m udp --sport 27950 -j DROP
+iptables -A INPUT -p udp -m udp --sport 27952 -j DROP
+iptables -A INPUT -p udp -m udp --sport 27960 -j DROP
+iptables -A INPUT -p udp -m udp --sport 27965 -j DROP
+iptables -A INPUT -p icmp -j ACCEPT
+iptables -A INPUT -p udp -m udp --sport 19329 -j DROP
+iptables -A INPUT -p udp -m udp --sport 53 -j DROP
+iptables -A INPUT -p tcp -m tcp --sport 53 -j DROP
+iptables -A INPUT -p tcp -m tcp --sport 19329 -j DROP
+iptables -A INPUT -p tcp -m tcp --sport 5353 -j DROP
+iptables -A INPUT -p udp -m udp --sport 5353 -j DROP
+iptables -A INPUT -p udp -m udp --sport 7143 -j DROP
+iptables -A INPUT -p tcp -m tcp --sport 7143 -j DROP
+iptables -A INPUT -p tcp -m tcp --sport 123 -j DROP
+iptables -A INPUT -p udp -m udp --sport 123 -j DROP
+iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
+iptables -N syn-flood
+iptables -A syn-flood -m limit --limit 10/sec --limit-burst 15 -j RETURN
+iptables -A syn-flood -j LOG --log-prefix "SYN flood: "
+iptables -A syn-flood -j DROP
+iptables-save > /etc/iptables/rules.v4
+iptables-save > $HOME/firewall.txt
+
+
+
+iptables -N f2b-sshd
+iptables -A INPUT -p tcp -m multiport --dports 22 -j f2b-sshd
+iptables -A f2b-sshd -j RETURN
+iptables -A INPUT -s 10.0.0.0/8 -j DROP
+iptables -A INPUT -s 169.254.0.0/16 -j DROP
+iptables -A INPUT -s 172.16.0.0/12 -j DROP
+iptables -A INPUT -i eth0 -s 127.0.0.0/8 -j DROP
+iptables -A INPUT -s 224.0.0.0/4 -j DROP
+iptables -A INPUT -d 224.0.0.0/4 -j DROP
+iptables -A INPUT -s 240.0.0.0/5 -j DROP
+iptables -A INPUT -d 240.0.0.0/5 -j DROP
+iptables -A INPUT -s 0.0.0.0/8 -j DROP
+iptables -A INPUT -d 0.0.0.0/8 -j DROP
+iptables -A INPUT -d 239.255.255.0/24 -j DROP
+iptables -A INPUT -d 255.255.255.255 -j DROP
+iptables -A INPUT -m state --state INVALID -j DROP
+iptables -A FORWARD -m state --state INVALID -j DROP
+iptables -A OUTPUT -m state --state INVALID -j DROP
+iptables -t mangle -A PREROUTING -m conntrack --ctstate INVALID -j DROP
+iptables -t mangle -A PREROUTING -p tcp ! --syn -m conntrack --ctstate NEW -j DROP
+iptables -t mangle -A PREROUTING -p tcp -m conntrack --ctstate NEW -m tcpmss ! --mss 536:65535 -j DROP
+iptables -A INPUT       -m conntrack --ctstate INVALID -j DROP
+iptables -A OUTPUT      -m conntrack --ctstate INVALID -j DROP
+iptables -A FORWARD     -m conntrack --ctstate INVALID -j DROP
+iptables -A INPUT -m state --state INVALID -j DROP
+iptables -A FORWARD -m state --state INVALID -j DROP
+iptables -A OUTPUT -m state --state INVALID -j DROP
+apt-get install ipset
+ipset create port_scanners hash:ip family inet hashsize 32768 maxelem 65536 timeout 600
+ipset create scanned_ports hash:ip,port family inet hashsize 32768 maxelem 65536 timeout 60
+iptables -A INPUT -m state --state INVALID -j DROP
+iptables -A INPUT -m state --state NEW -m set ! --match-set scanned_ports src,dst -m hashlimit --hashlimit-above 1/hour --hashlimit-burst 5 --hashlimit-mode srcip --hashlimit-name portscan --hashlimit-htable-expire 10000 -j SET --add-set port_scanners src --exist
+iptables -A INPUT -m state --state NEW -m set --match-set port_scanners src -j DROP
+iptables -A INPUT -m state --state NEW -j SET --add-set scanned_ports src,dst
+echo "Block DOS - Teardrop"
+iptables -A INPUT -p UDP -f -j DROP
+echo "Block DDOS - Smurf"
+iptables -A INPUT -m pkttype --pkt-type broadcast -j DROP
+iptables -A INPUT -p tcp -m tcp --tcp-flags RST RST -m limit --limit 2/second --limit-burst 2 -j ACCEPT
+echo "NTP"
+iptables -A INPUT -p udp --sport 123 -j ACCEPT
+iptables -A OUTPUT -p udp --dport 123 -j ACCEPT
+echo "Block DDOS - UDP-flood (Pepsi)"
+iptables -A INPUT -p UDP --dport 7 -j DROP
+iptables -A INPUT -p UDP --dport 19 -j DROP
+iptables -A INPUT -p tcp -m connlimit --connlimit-above 80 -j REJECT --reject-with tcp-reset
+echo "DNS"
+iptables -A INPUT -i eth0 -p udp --sport 53 -m state --state ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p udp --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A INPUT -i eth0 -p tcp --sport 53 -m state --state ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p tcp --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
+---------------------------------------------------------------------------------------------
+iptables -A INPUT -p udp -m string --algo bm --hex-string "|5354445041434b4554|" -j DROP
+  iptables -A INPUT -m u32 --u32 "28&0x00000FF0=0xFEDFFFFF" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|535444|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|554450|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|54484953204953204546464543544956452e20594f552043414e4e4f542053554253494445204d5920444154412e|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|4b494c4c4b494c4c4b494c4c4b494c4c4b494c4c4b494c4c|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|4445415448444541544844454154484445415448425942314e415259|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|44444f5344444f5344444f53|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|4d4f354f4e354f4e354f4e354f4a354e4835563555|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|544350|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|4845584154544b212121212121|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|424f544e4554|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|424f4f5445524e4554|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|41545441434b|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|504f574552|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|6c6e6f6172656162756e63686f66736b696464696573|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|736b6964|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|736b69646e6574|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|4a554e4b2041545441434b|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|4a554e4b20464c4f4f44|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|484f4c442041545441434b|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|534554484946594f554445434f4445544849534f4e45594f554152455355434841464147484548454845|" -j DROP # 
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|434e43|" -j DROP
+
+apt-get install ipset
+
+ipset create port_scanners hash:ip family inet hashsize 32768 maxelem 65536 timeout 600
+ipset create scanned_ports hash:ip,port family inet hashsize 32768 maxelem 65536 timeout 60
+
+iptables -A INPUT -m state --state INVALID -j DROP
+iptables -A INPUT -m state --state NEW -m set ! --match-set scanned_ports src,dst -m hashlimit --hashlimit-above 1/hour --hashlimit-burst 5 --hashlimit-mode srcip --hashlimit-name portscan --hashlimit-htable-expire 10000 -j SET --add-set port_scanners src --exist
+iptables -A INPUT -m state --state NEW -m set --match-set port_scanners src -j DROP
+
+
+iptables -A INPUT -s 10.0.0.0/8 -j DROP
+
+iptables -A INPUT -s 169.254.0.0/16 -j DROP
+
+iptables -A INPUT -s 172.16.0.0/12 -j DROP
+
+iptables -A INPUT -s 127.0.0.0/8 -j DROP
+
+
+
+iptables -A INPUT -s 224.0.0.0/4 -j DROP
+
+iptables -A INPUT -d 224.0.0.0/4 -j DROP
+
+iptables -A INPUT -s 240.0.0.0/5 -j DROP
+
+iptables -A INPUT -d 240.0.0.0/5 -j DROP
+
+iptables -A INPUT -s 0.0.0.0/8 -j DROP
+
+iptables -A INPUT -d 0.0.0.0/8 -j DROP
+
+iptables -A INPUT -d 239.255.255.0/24 -j DROP
+
+iptables -A INPUT -d 255.255.255.255 -j DROP
+
+iptables -A INPUT -m state --state INVALID -j DROP
+
+iptables -A FORWARD -m state --state INVALID -j DROP
+
+iptables -A OUTPUT -m state --state INVALID -j DROP
+
+iptables -A INPUT -p tcp -m tcp --tcp-flags RST RST -m limit --limit 2/second --limit-burst 2 -j ACCEPT
+
+iptables -A INPUT   -m recent --name portscan --rcheck --seconds 86400 -j DROP
+
+iptables -A FORWARD -m recent --name portscan --rcheck --seconds 86400 -j DROP
+
+iptables -A INPUT   -m recent --name portscan --remove
+
+iptables -A FORWARD -m recent --name portscan --remove
+
+iptables -A INPUT   -p tcp -m tcp --dport 139 -m recent --name portscan --set -j LOG --log-prefix "Portscan:"
+
+iptables -A INPUT   -p tcp -m tcp --dport 139 -m recent --name portscan --set -j DROP
+
+
+
+iptables -A FORWARD -p tcp -m tcp --dport 139 -m recent --name portscan --set -j LOG --log-prefix "Portscan:"
+
+iptables -A FORWARD -p tcp -m tcp --dport 139 -m recent --name portscan --set -j DROP
+
+iptables -A INPUT -m state --state INVALID -j DROP
+
+iptables -A FORWARD -m state --state INVALID -j DROP
+
+iptables -A OUTPUT -m state --state INVALID -j DROP
+
+
+iptables -N http-flood
+
+iptables -A INPUT -p tcp --syn --dport 80 -m connlimit --connlimit-above 1 -j http-flood
+
+iptables -A INPUT -p tcp --syn --dport 443 -m connlimit --connlimit-above 1 -j http-flood
+
+iptables -A http-flood -m limit --limit 10/s --limit-burst 10 -j RETURN
+
+iptables -A http-flood -m limit --limit 1/s --limit-burst 10 -j LOG --log-prefix "HTTP-FLOOD "
+
+iptables -A http-flood -j DROP
+
+
+iptables -A INPUT -p tcp --syn --dport 80 -m connlimit --connlimit-above 20 -j DROP
+
+iptables -A INPUT -p tcp --syn --dport 443 -m connlimit --connlimit-above 20 -j DROP
+
+iptables -A INPUT -p tcp --dport 80 -i eth0 -m state --state NEW -m recent --set
+
+iptables -I INPUT -p tcp --dport 80 -m state --state NEW -m recent --update --seconds 10 --hitcount 20 -j DROP
+
+iptables -A INPUT -p tcp --dport 443 -i eth0 -m state --state NEW -m recent --set
+
+iptables -I INPUT -p tcp --dport 443 -m state --state NEW -m recent --update --seconds 10 --hitcount 20 -j DROP
+
+iptables -A INPUT -p tcp --syn -m limit --limit 10/s --limit-burst 13 -j DROP
+
+iptables -N flood
+
+iptables -A flood -j LOG --log-prefix "FLOOD "
+
+iptables -A flood -j DROP
+
+
+iptables -t filter -N syn-flood
+
+iptables -t filter -A INPUT -i eth0 -p tcp --syn -j syn-flood
+
+iptables -t filter -A syn-flood -m limit --limit 1/sec --limit-burst 4 -j RETURN
+
+iptables -t filter -A syn-flood -j LOG \
+
+--log-prefix "IPTABLES SYN-FLOOD:"
+
+iptables -t filter -A syn-flood -j DROP
+
+
+iptables -t mangle -A PREROUTING -m conntrack --ctstate INVALID -j DROP
+
+iptables -t mangle -A PREROUTING -p tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG NONE -j DROP
+
+iptables -t mangle -A PREROUTING -p tcp --tcp-flags FIN,SYN FIN,SYN -j DROP
+
+iptables -t mangle -A PREROUTING -p tcp --tcp-flags SYN,RST SYN,RST -j DROP
+
+iptables -t mangle -A PREROUTING -p tcp --tcp-flags FIN,RST FIN,RST -j DROP
+
+iptables -t mangle -A PREROUTING -p tcp --tcp-flags FIN,ACK FIN -j DROP
+
+iptables -t mangle -A PREROUTING -p tcp --tcp-flags ACK,URG URG -j DROP
+
+iptables -t mangle -A PREROUTING -p tcp --tcp-flags ACK,FIN FIN -j DROP
+
+iptables -t mangle -A PREROUTING -p tcp --tcp-flags ACK,PSH PSH -j DROP
+
+iptables -t mangle -A PREROUTING -p tcp --tcp-flags ALL ALL -j DROP
+
+iptables -t mangle -A PREROUTING -p tcp --tcp-flags ALL NONE -j DROP
+
+iptables -t mangle -A PREROUTING -p tcp --tcp-flags ALL FIN,PSH,URG -j DROP
+
+iptables -t mangle -A PREROUTING -p tcp --tcp-flags ALL SYN,FIN,PSH,URG -j DROP
+
+iptables -t mangle -A PREROUTING -p tcp --tcp-flags ALL SYN,RST,ACK,FIN,URG -j DROP
+
+
+iptables -A INPUT -p tcp -m connlimit --connlimit-above 80 -j REJECT --reject-with tcp-reset
+
+iptables -A INPUT -p tcp -m conntrack --ctstate NEW -m limit --limit 60/s --limit-burst 20 -j ACCEPT
+
+iptables -A INPUT -p tcp -m conntrack --ctstate NEW -j DROP
+
+iptables -t mangle -A PREROUTING -f -j DROP
+
+iptables -A INPUT -p tcp --tcp-flags RST RST -m limit --limit 2/s --limit-burst 2 -j ACCEPT
+
+iptables -A INPUT -p tcp --tcp-flags RST RST -j DROP
+
+iptables -N port-scanning
+
+iptables -A port-scanning -p tcp --tcp-flags SYN,ACK,FIN,RST RST -m limit --limit 1/s --limit-burst 2 -j RETURN
+
+iptables -A port-scanning -j DROP
+
+
+
+iptables -A INPUT -m state --state NEW -j SET --add-set scanned_ports src,dst
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|434e432041545441434b|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|434e4320464c4f4f44|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|4841434b4552|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|4841434b|" -j DROP
+iptables -A INPUT -m u32 --u32 "12&0xFFFF=0xFFFF" -j DROP
+  iptables -A INPUT -m string --algo bm --from 28 --to 29 --string "farewell" -j DROP
+  iptables -I INPUT -p tcp -m tcp -m string --hex-string "|000000005010|" --algo kmp --from 28 --to 29 -m length --length 40 -j DROP
+  iptables -I INPUT -p udp -m udp -m string --hex-string "|53414d50|" --algo kmp --from 28 --to 29 -j DROP
+  iptables -A INPUT -p udp -m udp -m string --algo bm --from 32 --to 33 --string "AAAAAAAAAAAAAAAA" -j DROP
+  iptables -A INPUT -m string --algo bm --from 32 --to 33 --string "q00000000000000" -j DROP
+  iptables -A INPUT -m string --algo bm --from 32 --to 33 --string "statusResponse" -j DROP #SSDP Flood I have seen recently its a patch for it even though OVH picks most the traffic up 
+  iptables -A INPUT -p udp -m length --length 1025 -j DROP
+  iptables -A INPUT -p udp --dport 61327 -j DROP 
+iptables -A INPUT -p udp --source-port 123:123 -m state --state ESTABLISHED -j DROP #NTP ISSUE FIX
+iptables -A INPUT -p udp -m string --algo bm --hex-string "|736b6964|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|736b69646e6574|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|4a554e4b2041545441434b|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|4a554e4b20464c4f4f44|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|484f4c442041545441434b|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|534554484946594f554445434f4445544849534f4e45594f554152455355434841464147484548454845|" -j DROP # 
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|434e43js9273sjks|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|434e432041545441434bjsobdisbs|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|434e4320464c4f4f44|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|4841434b4552|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|4841434b|" -j DROP
+iptables -A INPUT -p udp -m string --algo bm --hex-string "|736b6964|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|736b69646e6574|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|4a554e4b2041545441434b|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|4a554e4b20464c4f4f44|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|484f4c442041545441434b|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|534554484946594f554445434f4445544849534f4e45594f554152455355434841464147484548454845|" -j DROP # 
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|434e43|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|434e432ee92041545441434b|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|434e4320464c4f4f44|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|4841434b4552|" -j DROP
+  iptables -A INPUT -p udp -m string --algo bm --hex-string "|4841434b|" -j DROP
+------------------------------------------------------------------------------------------------------------------
+iptables -A INPUT -m string --hex-string "|efbbbf30783030303230303031|" --algo bm --to 65535 -j DROP
+iptables -A INPUT -m string --hex-string "|efbbbf307830303030303030303030433032313130|" --algo bm --to 65535 -j DROP
+iptables -A INPUT -m string --hex-string "|efbbbfefbbbf307830303030303030303030433032313130|" --algo bm --to 65535 -j DROP
+iptables -A INPUT -m string --hex-string "|efbbbfefbbbfefbbbf30783030363030453030|" --algo bm --to 65535 -j DROP
+iptables -A INPUT -m string --hex-string "|efbbbfefbbbfefbbbfefbbbf30783030363030453038|" --algo bm --to 65535 -j DROP
+iptables -A INPUT -m string --hex-string "|efbbbfefbbbfefbbbfefbbbfefbbbf30783030303230303031|" --algo bm --to 65535 -j DROP
+-----------------------------------------------------------------------------------------------------------------------------------
+iptables -A INPUT -p udp -m multiport --dports 135,137,138,139,445,1433,1434 -j DROP
+iptables -A INPUT -p tcp -m multiport --dports 135,137,138,139,445,1433,1434 -j DROP
+iptables -A INPUT -p udp -m multiport --sports 135,137,138,139,445,1433,1434 -j DROP
+iptables -A INPUT -p tcp -m multiport --sports 135,137,138,139,445,1433,1434 -j DROP 
+iptables -A INPUT -p udp -m multiport --dports 853,4433,4740,5349,5684,5868,6514,6636,8232,10161 -j DROP
+iptables -A INPUT -p tcp -m multiport --dports 853,4433,4740,5349,5684,5868,6514,6636,8232,10161 -j DROP
+iptables -A INPUT -p udp -m multiport --sports 853,4433,4740,5349,5684,5868,6514,6636,8232,10161 -j DROP
+iptables -A INPUT -p tcp -m multiport --sports 853,4433,4740,5349,5684,5868,6514,6636,8232,10161 -j DROP
+iptables -A INPUT -p udp -m multiport --dports 10162,12346,12446,12546,12646,12746,12846,12946,13046 -j DROP 
+iptables -A INPUT -p tcp -m multiport --dports 10162,12346,12446,12546,12646,12746,12846,12946,13046 -j DROP
+iptables -A INPUT -p udp -m multiport --sports 10162,12346,12446,12546,12646,12746,12846,12946,13046 -j DROP
+iptables -A INPUT -p tcp -m multiport --sports 10162,12346,12446,12546,12646,12746,12846,12946,13046 -j DROP
+iptables -A INPUT -p udp -m multiport --dports 1645,1812,2049,3283,2302,6481,17185,26000,26001,26002 -j DROP
+iptables -A INPUT -p tcp -m multiport --dports 1645,1812,2049,3283,2302,6481,17185,26000,26001,26002 -j DROP
+iptables -A INPUT -p udp -m multiport --sports 1645,1812,2049,3283,2302,6481,17185,26000,26001,26002 -j DROP
+iptables -A INPUT -p tcp -m multiport --sports 1645,1812,2049,3283,2302,6481,17185,26000,26001,26002 -j DROP
+iptables -A INPUT -p udp -m multiport --dports 26003,26004,27960,27961,27962,27963,27964,30720,30721 -j DROP
+iptables -A INPUT -p tcp -m multiport --dports 26003,26004,27960,27961,27962,27963,27964,30720,30721 -j DROP
+iptables -A INPUT -p udp -m multiport --sports 26003,26004,27960,27961,27962,27963,27964,30720,30721 -j DROP
+iptables -A INPUT -p tcp -m multiport --sports 26003,26004,27960,27961,27962,27963,27964,30720,30721 -j DROP
+iptables -A INPUT -p udp -m multiport --dports 30722,30723,30724,44400,3784,64378,8767,11211,1645,1812,520 -j DROP
+iptables -A INPUT -p tcp -m multiport --dports 30722,30723,30724,44400,3784,64378,8767,11211,1645,1812,520 -j DROP
+iptables -A INPUT -p udp -m multiport --sports 30722,30723,30724,44400,3784,64378,8767,11211,1645,1812,520 -j DROP
+iptables -A INPUT -p tcp -m multiport --sports 30722,30723,30724,44400,3784,64378,8767,11211,1645,1812,520 -j DROP
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------
+iptables -A INPUT -p udp --dport 9987 -j ACCEPT
+iptables -A INPUT -p udp --sport 9987 -j ACCEPT
+iptables -A INPUT -p udp --dport 9988 -j ACCEPT
+iptables -A INPUT -p udp --sport 9988 -j ACCEPT
+iptables -A INPUT -p tcp --dport 30033 -j ACCEPT
+iptables -A INPUT -p tcp --sport 30033 -j ACCEPT
+iptables -A INPUT -p tcp --dport 10011 -j ACCEPT
+iptables -A INPUT -p tcp --sport 10011 -j ACCEPT
+iptables -A INPUT -p tcp --dport 41144 -j ACCEPT
+iptables -A INPUT -p tcp --sport 41144 -j ACCEPT
+iptables -A INPUT -p tcp --dport 2010 -j ACCEPT
+iptables -A INPUT -p tcp --sport 2010 -j ACCEPT
+iptables -A INPUT -p tcp --dport 2011 -j ACCEPT
+iptables -A INPUT -p tcp --sport 2011 -j ACCEPT
+iptables -A INPUT -p tcp --dport 2008 -j ACCEPT
+iptables -A INPUT -p tcp --sport 2008 -j ACCEPT
+iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+iptables -A INPUT -p tcp --sport 80 -j ACCEPT
+iptables -A INPUT -p tcp --dport 8087 -j ACCEPT
+iptables -A INPUT -p tcp --sport 8087 -j ACCEPT
+iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+iptables -A INPUT -p tcp --sport 443 -j ACCEPT
+iptables -A INPUT -p tcp --dport 21 -j ACCEPT
+iptables -A INPUT -p tcp --sport 21 -j ACCEPT
+iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+iptables -A INPUT -p tcp --sport 22 -j ACCEPT
+iptables -A INPUT -p udp --dport 53 -j ACCEPT
+iptables -A INPUT -p udp --sport 53 -j ACCEPT
+
+iptables -A OUTPUT -p udp -d weblist.teamspeak.com --dport 2010 -j ACCEPT
+iptables -A OUTPUT -p tcp -d accounting.teamspeak.com --dport 2008 -j ACCEPT
+iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT ACCEPT
+iptables -I INPUT -s 109.51.48.210 -j DROP
+iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+iptables -A INPUT -i lo -j ACCEPT
+
+iptables -A INPUT -p tcp -m tcp --tcp-flags FIN,ACK FIN -j DROP
+iptables -A INPUT -p tcp -m tcp --tcp-flags PSH,ACK PSH -j DROP
+iptables -A INPUT -p tcp -m tcp --tcp-flags ACK,URG URG -j DROP
+iptables -A INPUT -p tcp -m tcp --tcp-flags FIN,RST FIN,RST -j DROP
+iptables -A INPUT -p tcp -m tcp --tcp-flags FIN,SYN FIN,SYN -j DROP
+iptables -A INPUT -p tcp -m tcp --tcp-flags SYN,RST SYN,RST -j DROP
+iptables -A INPUT -p tcp -m tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG FIN,SYN,RST,PSH,ACK,URG -j DROP
+iptables -A INPUT -p tcp -m tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG NONE -j DROP
+iptables -A INPUT -p tcp -m tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG FIN,PSH,URG -j DROP
+iptables -A INPUT -p tcp -m tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG FIN,SYN,PSH,URG -j DROP
+iptables -A INPUT -p tcp -m tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG FIN,SYN,RST,ACK,URG -j DROP
+
+iptables -A INPUT -f -j DROP
+iptables -A INPUT -p udp -m udp --sport 19 -j DROP
+iptables -A INPUT -p udp -m udp --sport 123 -j DROP
+iptables -A INPUT -p udp -m udp --sport 161 -j DROP
+iptables -A INPUT -p udp -m udp --sport 1433 -j DROP
+iptables -A INPUT -p udp -m udp --sport 1900 -j DROP
+iptables -A INPUT -p udp -m udp --sport 27015 -j DROP
+iptables -A INPUT -p udp -m udp --sport 27950 -j DROP
+iptables -A INPUT -p udp -m udp --sport 27952 -j DROP
+iptables -A INPUT -p udp -m udp --sport 27960 -j DROP
+iptables -A INPUT -p udp -m udp --sport 27965 -j DROP
+iptables -A INPUT -p udp -m udp --sport 19329 -j DROP
+iptables -A INPUT -p udp -m udp --sport 53 -j DROP
+iptables -A INPUT -p tcp -m tcp --sport 53 -j DROP
+iptables -A INPUT -p tcp -m tcp --sport 19329 -j DROP
+iptables -A INPUT -p tcp -m tcp --sport 5353 -j DROP
+iptables -A INPUT -p udp -m udp --sport 5353 -j DROP
+iptables -A INPUT -p udp -m udp --sport 7143 -j DROP
+iptables -A INPUT -p tcp -m tcp --sport 7143 -j DROP
+iptables -A INPUT -p tcp -m tcp --sport 123 -j DROP
+iptables -A INPUT -p udp -m udp --sport 123 -j DROP
+iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
+
+iptables -N syn-flood
+iptables -A syn-flood -m limit --limit 10/sec --limit-burst 15 -j RETURN
+iptables -A syn-flood -j LOG --log-prefix "SYN flood: "
+iptables -A syn-flood -j DROP
+iptables-save > /etc/iptables/rules.v4
+iptables-save > $HOME/firewall.txt
+
+
+
+
+
+
+

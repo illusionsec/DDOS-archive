@@ -1,0 +1,18 @@
+(http.request.uri.query contains "&time=")
+allow
+
+
+(cf.client.bot)
+allow
+
+
+(ip.geoip.continent eq "AS") or (ip.geoip.country eq "ZW") or (ip.geoip.country eq "CO") or (ip.geoip.country eq "FR") or (ip.geoip.country eq "ZA") or (ip.geoip.country eq "BR") or (ip.geoip.country eq "DO")
+Block
+
+
+
+(cf.threat_score eq 3) or (cf.threat_score gt 3) or (ip.geoip.asnum eq 397391) or (ip.geoip.asnum eq 3326) or (ip.geoip.asnum eq 263665) or (ip.geoip.asnum eq 5713) or (ip.geoip.asnum eq 265613) or (ip.geoip.asnum eq 11686) or (ip.geoip.asnum eq 24940) or (ip.geoip.asnum eq 17552) or (ip.geoip.asnum eq 14840) or (ip.geoip.asnum eq 45629) or (ip.geoip.asnum eq 131090) or (ip.geoip.asnum eq 20860) or (ip.geoip.asnum eq 25513) or (ip.geoip.asnum eq 132960) or (ip.geoip.asnum eq 208323) or (ip.geoip.asnum eq 63949) or (ip.geoip.asnum eq 23969) or (ip.geoip.asnum eq 262318) or (ip.geoip.asnum eq 53755) or (ip.geoip.asnum eq 44546) or (ip.geoip.asnum eq 61317) or (ip.geoip.asnum eq 26658) or (ip.geoip.asnum eq 46261) or (ip.geoip.asnum eq 56971) or (ip.geoip.asnum eq 14061) or (ip.geoip.asnum eq 4134) or (ip.geoip.asnum eq 24961) or (ip.geoip.asnum eq 5555) or (ip.geoip.asnum eq 16509) or (ip.geoip.asnum eq 3786) or (ip.geoip.asnum eq 37963) or (ip.geoip.asnum eq 3303) or (ip.geoip.asnum eq 133775) or (ip.geoip.asnum eq 51167)
+block
+
+(http.request.version eq "HTTP/1.0") or (http.request.version eq "HTTP/1.1") or (http.request.version eq "HTTP/1.2") or (http.request.version eq "HTTP/2")
+js

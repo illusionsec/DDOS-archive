@@ -1,0 +1,4 @@
+----> find spoofs hosting <----
+https://ipinfo.io/
+https://hackertarget.com/as-ip-lookup/
+https://spoofer.caida.org/recent_tests.php

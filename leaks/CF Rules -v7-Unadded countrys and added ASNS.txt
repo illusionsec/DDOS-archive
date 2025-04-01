@@ -1,0 +1,55 @@
+[------CF RULES Bursty Edited------]
+       [--Add Them In Order--]
+
+#1
+Rule Name: Fixes API attacks
+Expresion: (http.request.uri.query contains "&time=") or (cf.client.bot)
+Action: Allow
+
+
+#2
+Rule Name: ASN's
+Expresion: (ip.geoip.asnum eq 397391) or (ip.geoip.asnum eq 3326) or (ip.geoip.asnum eq 263665) or (ip.geoip.asnum eq 5713) or (ip.geoip.asnum eq 265613) or (ip.geoip.asnum eq 11686) or (ip.geoip.asnum eq 24940) or (ip.geoip.asnum eq 17552) or (ip.geoip.asnum eq 14840) or (ip.geoip.asnum eq 132960) or (ip.geoip.asnum eq 208323) or (ip.geoip.asnum eq 63949) or (ip.geoip.asnum eq 23969) or (ip.geoip.asnum eq 262318) or (ip.geoip.asnum eq 53755) or (ip.geoip.asnum eq 44546) or (ip.geoip.asnum eq 61317) or (ip.geoip.asnum eq 26658) or (ip.geoip.asnum eq 24961) or (ip.geoip.asnum eq 5555) or (ip.geoip.asnum eq 16509) or (ip.geoip.asnum eq 3786) or (ip.geoip.asnum eq 37963) or (ip.geoip.asnum eq 3303) or (ip.geoip.asnum eq 133775) or (ip.geoip.asnum eq 31400) or (ip.geoip.asnum eq 3462) or (ip.geoip.asnum eq 57344) or (ip.geoip.asnum eq 53667) or (ip.geoip.asnum eq 36916) or (ip.geoip.asnum eq 4766) or (ip.geoip.asnum eq 138109) or (ip.geoip.asnum eq 34984) or (ip.geoip.asnum eq 24560) or (ip.geoip.asnum eq 21378) or (ip.geoip.asnum eq 198579) or (ip.geoip.asnum eq 31117) or (ip.geoip.asnum eq 202468) or (ip.geoip.asnum eq 58224) or (ip.geoip.asnum eq 63969) or (ip.geoip.asnum eq 9009) or (ip.geoip.asnum eq 213371) or (ip.geoip.asnum eq 51167) or (ip.geoip.asnum eq 4837) or (ip.geoip.asnum eq 11172) or (ip.geoip.asnum eq 36352) or (ip.geoip.asnum eq 9269) or (ip.geoip.asnum eq 262287) or (ip.geoip.asnum eq 141995) or (ip.geoip.asnum eq 6939) or (ip.geoip.asnum eq 6939) or (ip.geoip.asnum eq 138844) or (ip.geoip.asnum eq 200651) or (ip.geoip.asnum eq 8452) or (ip.geoip.asnum eq 8075) or (ip.geoip.asnum eq 8075) or (ip.geoip.asnum eq 12876) or (ip.geoip.asnum eq 58793)
+Action: Block
+
+#3
+Rule Name: Threat
+Expresion: (cf.threat_score eq 3) or (cf.threat_score ge 4)
+Action: Block
+
+#4
+Rule Name: Countrys
+Expresion: (ip.geoip.country eq "ID") or (ip.geoip.country eq "HK") or (ip.geoip.country eq "CN") or (ip.geoip.country eq "RU")
+Action: Block
+
+#5
+Rule Name: HTTP Version
+Expresion: (http.request.version eq "HTTP/1.0") or (http.request.version eq "HTTP/1.1") or (http.request.version eq "HTTP/1.2")
+Action: JS Challange
+============================================================================
+[-----User Agent Blocking-----]
+
+#1
+Name/Description: hackerz
+User Agent: sqlmap/1.4.12.30#dev (http://sqlmap.org)
+Action: Block
+
+#2
+Name/Description: 4
+User Agent: 4
+Action: Block
+
+#3
+Name/Description: Vxzod
+User Agent: Wget
+Action: Block
+
+#4
+Name/Description: CheckHOST lolll
+User Agent: CheckHost (https://check-host.net/)
+Action: Block
+
+#5
+Name/Description: golang ddos
+User Agent: Go-http-client/2.0
+Action: Block

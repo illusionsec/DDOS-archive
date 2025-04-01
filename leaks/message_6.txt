@@ -1,0 +1,333 @@
+# Flush rules
+iptables -F
+iptables -X
+iptables -t nat -F
+iptables -t nat -X
+iptables -t mangle -F
+iptables -t mangle -X
+iptables -t raw -F PREROUTING
+iptables -t raw -F OUTPUT
+
+# IPv6 Flush Rules
+ip6tables -F
+ip6tables -X
+ip6tables -t nat -F
+ip6tables -t nat -X
+ip6tables -t mangle -F
+ip6tables -t mangle -X
+ip6tables -t raw -F PREROUTING
+ip6tables -t raw -F OUTPUT
+
+# List policies first. # Here we drop all traffic and allow stuff only under.
+iptables -P INPUT DROP; iptables -P FORWARD DROP; iptables -P OUTPUT ACCEPT;
+
+# Drop GRE, ESP, AH
+iptables -t raw -A PREROUTING -p gre -j DROP
+iptables -t raw -A PREROUTING -p esp -j DROP
+iptables -t raw -A PREROUTING -p ah -j DROP
+
+# Drop CF ranges if not UDP sport 53 (Effectively blocks ovh.c and all udprape variants).
+iptables -t raw -A PREROUTING -p udp -s 173.245.48.0/20 ! --sport 53 -j DROP
+iptables -t raw -A PREROUTING -p udp -s 103.21.244.0/22 ! --sport 53 -j DROP
+iptables -t raw -A PREROUTING -p udp -s 103.22.200.0/22 ! --sport 53 -j DROP
+iptables -t raw -A PREROUTING -p udp -s 103.31.4.0/22 ! --sport 53 -j DROP
+iptables -t raw -A PREROUTING -p udp -s 141.101.64.0/18 ! --sport 53 -j DROP
+iptables -t raw -A PREROUTING -p udp -s 108.162.192.0/18 ! --sport 53 -j DROP
+iptables -t raw -A PREROUTING -p udp -s 190.93.240.0/20 ! --sport 53 -j DROP
+iptables -t raw -A PREROUTING -p udp -s 188.114.96.0/20 ! --sport 53 -j DROP
+iptables -t raw -A PREROUTING -p udp -s 197.234.240.0/22 ! --sport 53 -j DROP
+iptables -t raw -A PREROUTING -p udp -s 198.41.128.0/17 ! --sport 53 -j DROP
+iptables -t raw -A PREROUTING -p udp -s 162.158.0.0/15 ! --sport 53 -j DROP
+iptables -t raw -A PREROUTING -p udp -s 104.16.0.0/12 ! --sport 53 -j DROP
+iptables -t raw -A PREROUTING -p udp -s 172.64.0.0/13 ! --sport 53 -j DROP
+iptables -t raw -A PREROUTING -p udp -s 131.0.72.0/22 ! --sport 53 -j DROP
+
+# Drop Online SAS ranges if not UDP sport 53. (Cause fuck online.net/Scaleway)
+iptables -t raw -A PREROUTING -p udp -s 62.210.0.0/16 ! --sport 53 -j DROP
+iptables -t raw -A PREROUTING -p udp -s 195.154.0.0/16 ! --sport 53 -j DROP
+iptables -t raw -A PREROUTING -p udp -s 212.129.0.0/18 ! --sport 53 -j DROP
+iptables -t raw -A PREROUTING -p udp -s 62.4.0.0/19 ! --sport 53 -j DROP
+iptables -t raw -A PREROUTING -p udp -s 212.83.128.0/19 ! --sport 53 -j DROP
+iptables -t raw -A PREROUTING -p udp -s 212.83.160.0/19 ! --sport 53 -j DROP
+iptables -t raw -A PREROUTING -p udp -s 212.47.224.0/19 ! --sport 53 -j DROP
+iptables -t raw -A PREROUTING -p udp -s 63.172.0.0/16 ! --sport 53 -j DROP
+iptables -t raw -A PREROUTING -p udp -s 51.15.0.0/16 ! --sport 53 -j DROP
+iptables -t raw -A PREROUTING -p udp -s 151.115.0.0/16 ! --sport 53 -j DROP
+iptables -t raw -A PREROUTING -p udp -s 51.158.0.0/15 ! --sport 53 -j DROP
+
+# Drop Private subnets from external sources. (You dont want to get LAN addresses from the internet. These are always spoofed IPs/traffic).
+iptables -t raw -A PREROUTING -s 224.0.0.0/3 -j DROP
+iptables -t raw -A PREROUTING -s 169.254.0.0/16 -j DROP
+iptables -t raw -A PREROUTING -s 172.16.0.0/12 -j DROP
+iptables -t raw -A PREROUTING -s 192.0.2.0/24 -j DROP
+iptables -t raw -A PREROUTING -s 192.168.0.0/16 -j DROP
+
+# Drop Abusive IPs
+iptables -t raw -A PREROUTING -s 185.158.248.0/24 -j DROP
+#Perls
+iptables -t raw -A PREROUTING -s 51.38.107.102 -j DROP
+iptables -t raw -A PREROUTING -s 51.75.212.200 -j DROP
+iptables -t raw -A PREROUTING -s 185.204.1.160-185.204.1.180 -j DROP
+iptables -t raw -A PREROUTING -s 185.239.242.106-185.239.242.110 -j DROP
+
+# Portmap,CHARGEN,NetBIOS,STEAMDISCOVER,vxWorks,WSD,Echo,ARD,SNMP,SIP,MSSQL,TFTP,LDAP,RIP
+iptables -t raw -A PREROUTING -p udp -m multiport --sports 111,19,137,27036,17185,3702,7,3283,161,5060,1434,69,389,520 -j DROP
+# SENTINEL,DB2,AFS,MemcacheD,Ubiquiti(UBNT),Amanda backup,Beckhoff TwinCAT,QUAKE3,Lantronix,Digiman,Crestron,Plex,QOTD,CoAP
+iptables -t raw -A PREROUTING -p udp -m multiport --sports 5093,50000,7001,11211,10001,10080,48899,27960,30718,2362,41794,32414,17,5683 -j DROP
+# DVR DHCPDiscover,IPSec-IKE,Modbus,OpenVPN,Netis,NFS,Jenkins,bootp client,NTCP,BACnet
+iptables -t raw -A PREROUTING -p udp -m multiport --sports 37810,500,502,1194,53413,2049,33848,68,524,47808,47811:47823 -j DROP
+# A lot of UDP attacks target ports 22 and 80 and 443 despite the ports being TCP based, so we drop these for performance increase.
+iptables -t raw -A PREROUTING -p udp --dport 22 -j DROP
+iptables -t raw -A PREROUTING -p udp --dport 80 -j DROP
+iptables -t raw -A PREROUTING -p udp --dport 443 -j DROP
+# SMTP-KILLER
+iptables -t raw -A PREROUTING -p tcp -m multiport --sports 67,465 -j DROP
+
+# New packets without the SYN flag
+iptables -t mangle -A PREROUTING -p tcp ! --syn -m conntrack --ctstate NEW -j DROP
+
+# Bad TCP flags
+iptables -t raw -A PREROUTING -p tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG NONE -j DROP
+iptables -t raw -A PREROUTING -p tcp --tcp-flags FIN,SYN FIN,SYN -j DROP
+iptables -t raw -A PREROUTING -p tcp --tcp-flags SYN,RST SYN,RST -j DROP
+iptables -t raw -A PREROUTING -p tcp --tcp-flags FIN,RST FIN,RST -j DROP
+iptables -t raw -A PREROUTING -p tcp --tcp-flags FIN,ACK FIN -j DROP
+iptables -t raw -A PREROUTING -p tcp --tcp-flags ACK,URG URG -j DROP
+iptables -t raw -A PREROUTING -p tcp --tcp-flags ACK,FIN FIN -j DROP
+iptables -t raw -A PREROUTING -p tcp --tcp-flags ACK,PSH PSH -j DROP
+iptables -t raw -A PREROUTING -p tcp --tcp-flags SYN,URG SYN,URG -j DROP
+iptables -t raw -A PREROUTING -p tcp --tcp-flags ALL ALL -j DROP
+iptables -t raw -A PREROUTING -p tcp --tcp-flags ALL NONE -j DROP  
+iptables -t raw -A PREROUTING -p tcp --tcp-flags ALL FIN,PSH,URG -j DROP
+iptables -t raw -A PREROUTING -p tcp --tcp-flags ALL SYN,FIN,PSH,URG -j DROP
+iptables -t raw -A PREROUTING -p tcp --tcp-flags ALL SYN,RST,ACK,FIN,URG -j DROP
+iptables -t raw -A PREROUTING -p tcp --tcp-flags ALL SYN,RST,ACK,FIN,URG,PSH -j DROP
+iptables -t raw -A PREROUTING -p tcp --tcp-flags RST,PSH RST,PSH -j DROP
+iptables -t raw -A PREROUTING -p tcp --tcp-flags ALL SYN,ACK,URG -j DROP
+iptables -t raw -A PREROUTING -p tcp --tcp-flags ALL SYN,PSH,ACK,URG -j DROP
+
+# Drop invalid packets
+/sbin/sysctl -w net/netfilter/nf_conntrack_tcp_loose=0 > /dev/null
+/sbin/sysctl -w net/ipv4/tcp_timestamps=1 > /dev/null
+iptables -t raw -A PREROUTING -p tcp -m tcp --syn -m multiport --dports 6672,3478,3479,3544,3474 -j CT --notrack
+iptables -A INPUT -p tcp -m tcp -m multiport --dports 6672,3478,3479,3544,3474 -m state --state INVALID,UNTRACKED -j SYNPROXY --sack-perm --timestamp --wscale 7 --mss 1460
+iptables -t mangle -A PREROUTING -m state --state INVALID -j DROP
+
+
+# Drop Sourceports
+# UDP
+iptables -t raw -A PREROUTING -p udp --sport 37810 -j DROP
+iptables -t raw -A PREROUTING -p udp --sport 7001 -j DROP
+iptables -t raw -A PREROUTING -p udp --sport 17185 -j DROP
+iptables -t raw -A PREROUTING -p udp --sport 3072 -j DROP
+iptables -t raw -A PREROUTING -p udp --sport 3702 -j DROP
+# Source port 32414 already dropped on network level at OVH firewall, but lets drop it again for some other IPs.
+iptables -t raw -A PREROUTING -p udp --sport 32414 -j DROP
+iptables -t raw -A PREROUTING -p udp --sport 177 -j DROP
+# TCP
+iptables -t raw -A PREROUTING -p tcp --sport 3072 -j DROP
+iptables -t raw -A PREROUTING -p tcp --sport 3702 -j DROP
+
+
+#Drop A2S attack
+# If still CPU goes to 100% in htop, remove all these bellow
+iptables -A PREROUTING -t raw -p udp -m multiport --dports 6672,3478,3479,3544,3474 -m string --algo kmp --hex-string '|545333494e495431|' -j DROP
+iptables -A PREROUTING -t raw -p udp -m multiport --dports 6672,3478,3479,3544,3474 -m string --algo kmp --hex-string '|5045414345434f525053|' -j DROP
+iptables -A PREROUTING -t raw -p udp -m multiport --dports 6672,3478,3479,3544,3474 -m string --algo kmp --hex-string '|7065616365636f727073|' -j DROP
+iptables -A PREROUTING -t raw -p udp -m multiport --dports 6672,3478,3479,3544,3474 -m string --algo kmp --hex-string '|0cc47a82476c58ac|' -j DROP
+iptables -A PREROUTING -t raw -p udp -m multiport --dports 6672,3478,3479,3544,3474 -m string --algo kmp --hex-string '|7a7a7a7a7a|' -j DROP
+iptables -A PREROUTING -t raw -p udp -m multiport --dports 6672,3478,3479,3544,3474 -m string --algo kmp --hex-string '|ffffffff49|' -j DROP
+iptables -A PREROUTING -t raw -p udp -m multiport --dports 6672,3478,3479,3544,3474 -m string --algo kmp --hex-string '|ffffffff54|' -j DROP
+iptables -A PREROUTING -t raw -p udp -m multiport --dports 6672,3478,3479,3544,3474 -m string --algo kmp --hex-string '|ffffffff55|' -j DROP
+iptables -A PREROUTING -t raw -p udp -m multiport --dports 6672,3478,3479,3544,3474 -m string --algo kmp --hex-string '|ffffffff56|' -j DROP
+iptables -A PREROUTING -t raw -p udp -m multiport --dports 6672,3478,3479,3544,3474 -m string --algo kmp --hex-string '|ffffffff57|' -j DROP
+iptables -A PREROUTING -t raw -p udp -m multiport --dports 6672,3478,3479,3544,3474 -m string --algo kmp --hex-string '|ffffffff73|' -j DROP
+iptables -A PREROUTING -t raw -p udp -m multiport --dports 6672,3478,3479,3544,3474 -m string --algo kmp --hex-string '|fefefefefe|' -j DROP
+iptables -A PREROUTING -t raw -p udp -m multiport --dports 6672,3478,3479,3544,3474 -m string --algo kmp --hex-string '|5d5dfefefe|' -j DROP
+iptables -A PREROUTING -t raw -p udp -m multiport --dports 6672,3478,3479,3544,3474 -m string --algo kmp --hex-string '|5dfefefefe|' -j DROP
+iptables -A PREROUTING -t raw -p udp -m multiport --dports 6672,3478,3479,3544,3474 -m string --algo kmp --hex-string '|5dfefe|' -j DROP
+iptables -A PREROUTING -t raw -p udp -m multiport --dports 6672,3478,3479,3544,3474 -m string --algo kmp --hex-string '|4a4a4a4a4a|' -j DROP
+iptables -A PREROUTING -t raw -p udp -m multiport --dports 6672,3478,3479,3544,3474 -m string --algo kmp --hex-string '|fefea100c7|' -j DROP
+iptables -A PREROUTING -t raw -p udp -m multiport --dports 6672,3478,3479,3544,3474 -m string --algo kmp --hex-string '|4a28487066|' -j DROP
+iptables -A PREROUTING -t raw -p udp -m multiport --dports 6672,3478,3479,3544,3474 -m string --algo kmp --hex-string '|52783c8292|' -j DROP
+# Drop STD (Hito botnet method)
+iptables -A PREROUTING -t raw -p udp -m string --algo bm --string "hihelloowouwuqwqsrhgsuckmadickconsidertogoofflinetyvmdiegoofflineovh" -j DROP
+# Drop UDP Hex
+iptables -A PREROUTING -t raw -p udp -m string --algo bm --string "/x38/xFJ/x93/xID/x9A/x38/xFJ/x93/xID/x9A/x38/xFJ/x93/xID/x9A/x38/xFJ/x93/xID/x9A/x38/xFJ/x93/xID/x9A/" -m length --length 1500 -j DROP
+# Patch VSE A2S Attack
+iptables -A PREROUTING -t raw -p udp -m string --algo bm --string "TSource Engine Query" -j DROP
+# Patch SEXP
+iptables -t raw -A PREROUTING -p udp -m string --algo bm --string "\rules" -m length --length 49 -j DROP
+iptables -t raw -A PREROUTING -p udp -m string --algo bm --string "\basic" -m length --length 49 -j DROP
+iptables -t raw -A PREROUTING -p udp -m string --algo bm --string "\status" -m length --length 50 -j DROP
+iptables -t raw -A PREROUTING -p udp -m string --algo bm --string "\players" -m length --length 51 -j DROP
+# Stop the removing into here
+
+# Allow incoming packets related to outgoing ones.
+iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+
+# Allow Pritunl
+iptables -A INPUT -i tun+ -m comment --comment pritunl-5ec4afdf305736780b9b9d3f -j ACCEPT
+iptables -A FORWARD -o tun+ -m comment --comment pritunl-5ec4afdf305736780b9b9d3f -j ACCEPT
+iptables -A FORWARD -i tun+ -m comment --comment pritunl-5ec4afdf305736780b9b9d3f -j ACCEPT
+iptables -A OUTPUT -o tun+ -m comment --comment pritunl-5ec4afdf305736780b9b9d3f -j ACCEPT
+
+# Allow VPN
+iptables -A INPUT -p tcp -m state --state NEW -m multiport --dports 22 -j ACCEPT
+iptables -A INPUT -p tcp -m state --state NEW -m multiport --dports 443 -j ACCEPT
+iptables -A INPUT -p tcp --syn -m state --state NEW --dport 6969 -j ACCEPT
+iptables -A INPUT -p tcp -m state --state NEW -s 8.8.8.8/32 -m multiport --dports 53 -j ACCEPT
+iptables -A INPUT -p udp -s 8.8.8.8/32 -m multiport --dports 53 -j ACCEPT
+
+# killall specific rules. Disabled untill installing.
+iptables -A OUTPUT -t mangle -o eth0 -p tcp -m multiport --dports 80,443 -j MARK --set-mark 1
+iptables -A POSTROUTING -t nat -o eth0  -p tcp -m multiport --dports 80,443 -j SNAT --to 15.204.22.165
+  
+#Rewrite the source IP address
+
+#PSN Auth IP
+
+# iptables -t nat -A POSTROUTING -p tcp --syn -s 10.8.0.0/24 -d accounts.api.playstation.com -m comment --comment "PSN Authentication" -j SNAT --to-source 15.204.22.165
+
+#Dedicated IPs
+# CHANGE INTERNAL IPS (10.8.0.x/32) TO MATCH THE NEW CONFIGS YOU HAVE TO RE-CREATE AFTER RE-INSTALL. CHECK FROM PRITUNL WEB USERS PAGE FOR INTERNAL IPS.
+
+#DNS - Matches
+iptables -t nat -A POSTROUTING -p udp -s 10.8.0.4/32 -m multiport --sports 3074,3544,3478,3479,6672 -m comment --comment "UDP Gameports Source" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p udp -s 10.8.0.4/32 -m multiport --dports 3074,3544,3478,3479,6672 -m comment --comment "UDP Gameports Destination" -j SNAT --to-source 15.204.22.165
+
+#Tapes - Matches
+iptables -t nat -A POSTROUTING -p udp -s 10.8.0.5/32 -m multiport --sports 3074,3544,3478,3479,6672 -m comment --comment "UDP Gameports Source" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p udp -s 10.8.0.5/32 -m multiport --dports 3074,3544,3478,3479,6672 -m comment --comment "UDP Gameports Destination" -j SNAT --to-source 15.204.22.165
+
+#gmony - Matches
+iptables -t nat -A POSTROUTING -p udp -s 10.8.0.2/32 -m multiport --sports 3074,3544,3478,3479,6672 -m comment --comment "UDP Gameports Source" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p udp -s 10.8.0.2/32 -m multiport --dports 3074,3544,3478,3479,6672 -m comment --comment "UDP Gameports Destination" -j SNAT --to-source 15.204.22.165
+
+# Doeboy - Matches
+iptables -t nat -A POSTROUTING -p udp -s 10.8.0.12/32 -m multiport --sports 3074,3544,3478,3479,6672 -m comment --comment "UDP Gameports Source" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p udp -s 10.8.0.12/32 -m multiport --dports 3074,3544,3478,3479,6672 -m comment --comment "UDP Gameports Destination" -j SNAT --to-source 15.204.22.165
+
+# Drifted
+iptables -t nat -A POSTROUTING -p udp -s 10.8.0.46/32 -m multiport --sports 3074,3544,3478,3479,6672 -m comment --comment "UDP Gameports Source" -j SNAT --to-source  15.204.22.165
+iptables -t nat -A POSTROUTING -p udp -s 10.8.0.46/32 -m multiport --dports 3074,3544,3478,3479,6672 -m comment --comment "UDP Gameports Destination" -j SNAT --to-source  15.204.22.165
+
+#Drugyn
+iptables -t nat -A POSTROUTING -p udp -s 10.8.0.12/32 -m multiport --sports 3074,3544,3478,3479,6672 -m comment --comment "UDP Gameports Source" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p udp -s 10.8.0.12/32 -m multiport --dports 3074,3544,3478,3479,6672 -m comment --comment "UDP Gameports Destination" -j SNAT --to-source 15.204.22.165
+
+#Peguaina
+iptables -t nat -A POSTROUTING -p udp -s 10.8.0.13/32 -m multiport --sports 3074,3544,3478,3479,6672 -m comment --comment "UDP Gameports Source" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p udp -s 10.8.0.13/32 -m multiport --dports 3074,3544,3478,3479,6672 -m comment --comment "UDP Gameports Destination" -j SNAT --to-source 15.204.22.165
+#Kariq
+iptables -t nat -A POSTROUTING -p udp -s 10.8.0.30/32 -m multiport --sports 3074,3544,3478,3479,6672 -m comment --comment "UDP Gameports Source" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p udp -s 10.8.0.30/32 -m multiport --dports 3074,3544,3478,3479,6672 -m comment --comment "UDP Gameports Destination" -j SNAT --to-source 15.204.22.165
+
+#Imhpc
+iptables -t nat -A POSTROUTING -p udp -s 10.8.0.31/32 -m multiport --sports 3074,3544,3478,3479,6672 -m comment --comment "UDP Gameports Source" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p udp -s 10.8.0.31/32 -m multiport --dports 3074,3544,3478,3479,6672 -m comment --comment "UDP Gameports Destination" -j SNAT --to-source 15.204.22.165
+
+#Backend
+iptables -t nat -A POSTROUTING -p udp -s 10.8.0.31/32 -m multiport --sports 3074,3544,3478,3479,6672 -m comment --comment "UDP Gameports Source" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p udp -s 10.8.0.31/32 -m multiport --dports 3074,3544,3478,3479,6672 -m comment --comment "UDP Gameports Destination" -j SNAT --to-source 15.204.22.165
+
+#Proxy
+iptables -t nat -A POSTROUTING -p udp -s 10.8.0.32/32 -m multiport --sports 3074,3544,3478,3479,6672 -m comment --comment "UDP Gameports Source" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p udp -s 10.8.0.32/32 -m multiport --dports 3074,3544,3478,3479,6672 -m comment --comment "UDP Gameports Destination" -j SNAT --to-source 15.204.22.165
+
+#Satan
+iptables -t nat -A POSTROUTING -p udp -s 10.8.0.34/32 -m multiport --sports 3074,3544,3478,3479,6672 -m comment --comment "UDP Gameports Source" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p udp -s 10.8.0.34/32 -m multiport --dports 3074,3544,3478,3479,6672 -m comment --comment "UDP Gameports Destination" -j SNAT --to-source 15.204.22.165
+
+#drugrunning
+iptables -t nat -A POSTROUTING -p udp -s 10.8.0.26/32 -m multiport --sports 3074,3544,3478,3479,6672 -m comment --comment "UDP Gameports Source" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p udp -s 10.8.0.26/32 -m multiport --dports 3074,3544,3478,3479,6672 -m comment --comment "UDP Gameports Destination" -j SNAT --to-source 15.204.22.165
+
+
+# unassigned to users but added already to ifconfig-0:x and OVH firewall rules are copied too.
+# 15.204.22.165
+# 15.204.22.165
+
+# unassigned to users but added already to ifconfig-0:x and OVH firewall rules are NOT COPIED/DONE, AND FIX LABELS ON OVH PANEL!
+# 15.204.22.165
+# 15.204.22.165
+
+# Unassigned to users, and NOT added to ifconfig-0:x and OVH firewall rules are NOT COPIED/DONE, AND FIX LABELS ON OVH PANEL!
+# 15.204.22.165
+# 15.204.22.165
+# 15.204.22.165
+# 15.204.22.165
+
+# Reserved IPs not to be used for anything. If these are assigned to users, ur gonna get fucked by attacks.
+# 15.204.22.165 HTTP/HTTPS Secondary and Current Killall IP.
+# 15.204.22.165 PSN Authentication.
+
+
+# 54.39.226.236 - 54.39.226.239 - UDP Gameports
+iptables -t nat -A POSTROUTING -p udp -s 10.8.0.0/24 -m multiport --sports 3074,3544,3478,3479,6672 -m comment --comment "UDP Gameports Source" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p udp -s 10.8.0.0/24 -m multiport --dports 3074,3544,3478,3479,6672 -m comment --comment "UDP Gameports Destination" -j SNAT --to-source 15.204.22.165
+
+# 192.99.217.224 - 192.99.217.227 - UDP Ports
+iptables -t nat -A POSTROUTING -p udp -s 10.8.0.0/24 -m multiport --sports 0:65535 -m comment --comment "UDP Ports Source" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p udp -s 10.8.0.0/24 -m multiport --dports 0:65535 -m comment --comment "UDP Ports Destination" -j SNAT --to-source 15.204.22.165
+
+
+# Give Restricted TCP IP to IP check websites.
+iptables -t nat -A POSTROUTING -p TCP --syn -s 10.0.0.0/8 -d check-host.net -m comment --comment "CheckHost" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p TCP --syn -s 10.0.0.0/8 -d www.whatismyip.com -m comment --comment "whatismyip" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p TCP --syn -s 10.0.0.0/8 -d www.whatsmyip.org -m comment --comment "whatsmyip.org" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p TCP --syn -s 10.0.0.0/8 -d www.ipchicken.com -m comment --comment "whatsmyip.org" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p TCP --syn -s 10.0.0.0/8 -d nordvpn.com -m comment --comment "nordvpn" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p TCP --syn -s 10.0.0.0/8 -d whatismyip.host -m comment --comment "whatismyip.host" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p TCP --syn -s 10.0.0.0/8 -d www.showmyip.com -m comment --comment "showmyip" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p TCP --syn -s 10.0.0.0/8 -d whatismyipaddress.com -m comment --comment "whatismyipaddress" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p TCP --syn -s 10.0.0.0/8 -d www.whatismyip.net -m comment --comment "www.whatismyip.net" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p TCP --syn -s 10.0.0.0/8 -d www.whatismypublicip.com -m comment --comment "www.whatismypublicip.com" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p TCP --syn -s 10.0.0.0/8 -d www.iplocation.net -m comment --comment "www.iplocation.net" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p TCP --syn -s 10.0.0.0/8 -d www.db-ip.com -m comment --comment "www.db-ip.com" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p TCP --syn -s 10.0.0.0/8 -d ipinfo.io -m comment --comment "ipinfo.io" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p TCP --syn -s 10.0.0.0/8 -d www.ip2location.com -m comment --comment "www.ip2location.com" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p TCP --syn -s 10.0.0.0/8 -d 104.26.4.15 -m comment --comment "IPCLOUDFLARE" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p TCP --syn -s 10.0.0.0/8 -d 107.154.115.114 -m comment --comment "Incapsula Inc" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p TCP --syn -s 10.0.0.0/8 -d ipcow.net -m comment --comment "IPCOW" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p TCP --syn -s 10.0.0.0/8 -d google.com -m comment --comment "google.com" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p TCP --syn -s 10.0.0.0/8 -d google.fr -m comment --comment "google.fr" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p TCP --syn -s 10.0.0.0/8 -d google.co.uk -m comment --comment "google.co.uk" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p TCP --syn -s 10.0.0.0/8 -d google.fi -m comment --comment "google.fi" -j SNAT --to-source 15.204.22.165
+
+
+# 51.195.164.80-51.195.164.87 - TCP Ports
+iptables -t nat -A POSTROUTING -p tcp -s 10.8.0.0/24 -m multiport --sports 0:65535 -m comment --comment "TCP Ports Source" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p tcp -s 10.8.0.0/24 -m multiport --dports 0:65535 -m comment --comment "TCP Ports Destination" -j SNAT --to-source 15.204.22.165
+
+
+# Fix TCP-SACK - CVE-2019-11477, CVE-2019-11478, CVE-2019-11479
+iptables -A INPUT -p tcp -m tcpmss --mss 1:500 -j DROP
+ip6tables -A INPUT -p tcp -m tcpmss --mss 1:500 -j DROP
+sysctl -w net.ipv4.tcp_mtu_probing=0 > /dev/null
+
+
+# sysctl rules
+sysctl -w net.ipv4.tcp_syncookies=1 > /dev/null
+sysctl -w net.ipv4.tcp_max_syn_backlog=16384 > /dev/null
+sysctl -w net.netfilter.nf_conntrack_max=2500000 > /dev/null
+sysctl -w net.netfilter.nf_conntrack_buckets=125000 > /dev/null
+sysctl -w net.netfilter.nf_conntrack_tcp_timeout_time_wait=5 > /dev/null
+sysctl -w net.ipv4.ip_local_port_range="1026 65000" > /dev/null
+echo 5 > /proc/sys/net/ipv4/tcp_fin_timeout
+
+# Allow ICMP
+iptables -A INPUT -p icmp -j ACCEPT
+
+# Allow all localhost
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+
+# ICMP Enabler
+iptables -t nat -A POSTROUTING -p icmp -s 10.8.0.0/24 -m comment --comment "ICMP Ports Source" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p icmp -s 10.8.0.0/24 -m comment --comment "ICMP Ports Destination" -j SNAT --to-source 15.204.22.165
+
+iptables -t nat -A POSTROUTING -p icmp -s 10.8.0.0/24 -m comment --comment "ICMP Ports Source" -j SNAT --to-source 15.204.22.165
+iptables -t nat -A POSTROUTING -p icmp -s 10.8.0.0/24 -m comment --comment "ICMP Ports Destination" -j SNAT --to-source 15.204.22.165

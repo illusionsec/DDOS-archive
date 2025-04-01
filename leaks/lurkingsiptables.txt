@@ -1,0 +1,164 @@
+iptables -t mangle -A PREROUTING -m conntrack --ctstate INVALID -j DROP  
+iptables -t mangle -A PREROUTING -p tcp ! --syn -m conntrack --ctstate NEW -j DROP 
+iptables -t mangle -A PREROUTING -p tcp -m conntrack --ctstate NEW -m tcpmss ! --mss 536:65535 -j DROP  
+iptables -t mangle -A PREROUTING -p tcp --tcp-flags FIN,SYN FIN,SYN -j DROP
+iptables -t mangle -A PREROUTING -p tcp --tcp-flags SYN,RST SYN,RST -j DROP
+iptables -t mangle -A PREROUTING -p tcp --tcp-flags FIN,RST FIN,RST -j DROP
+iptables -t mangle -A PREROUTING -p tcp --tcp-flags FIN,ACK FIN -j DROP
+iptables -t mangle -A PREROUTING -p tcp --tcp-flags ACK,URG URG -j DROP
+iptables -t mangle -A PREROUTING -p tcp --tcp-flags ACK,PSH PSH -j DROP
+iptables -t mangle -A PREROUTING -p tcp --tcp-flags ALL NONE -j DROP
+iptables -t mangle -A PREROUTING -s 224.0.0.0/3 -j DROP 
+iptables -t mangle -A PREROUTING -s 169.254.0.0/16 -j DROP 
+iptables -t mangle -A PREROUTING -s 172.16.0.0/12 -j DROP 
+iptables -t mangle -A PREROUTING -s 192.0.2.0/24 -j DROP 
+iptables -t mangle -A PREROUTING -s 192.168.0.0/16 -j DROP 
+iptables -t mangle -A PREROUTING -s 10.0.0.0/8 -j DROP 
+iptables -t mangle -A PREROUTING -s 0.0.0.0/8 -j DROP 
+iptables -t mangle -A PREROUTING -s 240.0.0.0/5 -j DROP 
+iptables -t mangle -A PREROUTING -s 127.0.0.0/8 ! -i lo -j DROP  
+iptables -t mangle -A PREROUTING -p icmp -j DROP  
+iptables -t mangle -A PREROUTING -f -j DROP  
+iptables -A INPUT -p tcp -m connlimit --connlimit-above 111 -j REJECT --reject-with tcp-reset  
+iptables -A INPUT -p tcp --tcp-flags RST RST -m limit --limit 2/s --limit-burst 2 -j ACCEPT 
+iptables -A INPUT -p tcp --tcp-flags RST RST -j DROP  
+iptables -A INPUT -p tcp -m conntrack --ctstate NEW -m limit --limit 60/s --limit-burst 20 -j ACCEPT 
+iptables -A INPUT -p tcp -m conntrack --ctstate NEW -j DROP  
+iptables -A INPUT -p tcp --dport ssh -m conntrack --ctstate NEW -m recent --set 
+iptables -A INPUT -p tcp --dport ssh -m conntrack --ctstate NEW -m recent --update --seconds 60 --hitcount 10 -j DROP  
+iptables -N port-scanning 
+iptables -A port-scanning -p tcp --tcp-flags SYN,ACK,FIN,RST RST -m limit --limit 1/s --limit-burst 2 -j RETURN 
+iptables -A port-scanning -j DROP
+sudo iptables -A OUTPUT -m conntrack --ctstate ESTABLISHED -j ACCEPT
+sudo iptables -A INTPUT -m conntrack --ctstate ESTABLISHED -j ACCEPT
+iptables -I INPUT -p tcp -s 103.5.12.0/22 -j DROP
+iptables -I INPUT -p tcp -s 107.189.64.0/18 -j DROP
+iptables -I INPUT -p tcp -s 135.125.0.0/17 -j DROP
+iptables -I INPUT -p tcp -s 135.125.128.0/17 -j DROP
+iptables -I INPUT -p tcp -s 135.148.0.0/17 -j DROP
+iptables -I INPUT -p tcp -s 135.148.128.0/17 -j DROP
+iptables -I INPUT -p tcp -s 137.74.0.0/16 -j DROP
+iptables -I INPUT -p tcp -s 139.99.0.0/17 -j DROP
+iptables -I INPUT -p tcp -s 139.99.128.0/17 -j DROP
+iptables -I INPUT -p tcp -s 141.94.0.0/16 -j DROP
+iptables -I INPUT -p tcp -s 141.95.0.0/17 -j DROP
+iptables -I INPUT -p tcp -s 141.95.128.0/17 -j DROP
+iptables -I INPUT -p tcp -s 142.4.192.0/19 -j DROP
+iptables -I INPUT -p tcp -s 142.44.128.0/17 -j DROP
+iptables -I INPUT -p tcp -s 144.217.0.0/16 -j DROP
+iptables -I INPUT -p tcp -s 144.2.32.0/19 -j DROP
+iptables -I INPUT -p tcp -s 145.239.0.0/16 -j DROP
+iptables -I INPUT -p tcp -s 146.59.0.0/16 -j DROP
+iptables -I INPUT -p tcp -s 146.59.0.0/17 -j DROP
+iptables -I INPUT -p tcp -s 147.135.0.0/17 -j DROP
+iptables -I INPUT -p tcp -s 147.135.128.0/17 -j DROP
+iptables -I INPUT -p tcp -s 148.113.128.0/17 -j DROP
+iptables -I INPUT -p tcp -s 149.202.0.0/16 -j DROP
+iptables -I INPUT -p tcp -s 149.56.0.0/16 -j DROP
+iptables -I INPUT -p tcp -s 151.80.0.0/16 -j DROP
+iptables -I INPUT -p tcp -s 15.204.0.0/17 -j DROP
+iptables -I INPUT -p tcp -s 15.204.128.0/17 -j DROP
+iptables -I INPUT -p tcp -s 152.228.128.0/17 -j DROP
+iptables -I INPUT -p tcp -s 15.235.0.0/17 -j DROP
+iptables -I INPUT -p tcp -s 15.235.128.0/17 -j DROP
+iptables -I INPUT -p tcp -s 158.69.0.0/16 -j DROP
+iptables -I INPUT -p tcp -s 162.19.0.0/17 -j DROP
+iptables -I INPUT -p tcp -s 162.19.128.0/17 -j DROP
+iptables -I INPUT -p tcp -s 164.132.0.0/16 -j DROP
+iptables -I INPUT -p tcp -s 167.114.0.0/17 -j DROP
+iptables -I INPUT -p tcp -s 167.114.128.0/18 -j DROP
+iptables -I INPUT -p tcp -s 167.114.192.0/19 -j DROP
+iptables -I INPUT -p tcp -s 167.114.224.0/19 -j DROP
+iptables -I INPUT -p tcp -s 176.31.0.0/16 -j DROP
+iptables -I INPUT -p tcp -s 178.32.0.0/15 -j DROP
+iptables -I INPUT -p tcp -s 185.12.32.0/23 -j DROP
+iptables -I INPUT -p tcp -s 185.228.96.0/24 -j DROP
+iptables -I INPUT -p tcp -s 185.228.97.0/24 -j DROP
+iptables -I INPUT -p tcp -s 185.228.98.0/24 -j DROP
+iptables -I INPUT -p tcp -s 185.228.99.0/24 -j DROP
+iptables -I INPUT -p tcp -s 185.45.160.0/22 -j DROP
+iptables -I INPUT -p tcp -s 188.165.0.0/16 -j DROP
+iptables -I INPUT -p tcp -s 192.240.152.0/21 -j DROP
+iptables -I INPUT -p tcp -s 192.95.0.0/18 -j DROP
+iptables -I INPUT -p tcp -s 192.99.0.0/16 -j DROP
+iptables -I INPUT -p tcp -s 193.70.0.0/17 -j DROP
+iptables -I INPUT -p tcp -s 195.110.30.0/23 -j DROP
+iptables -I INPUT -p tcp -s 195.246.232.0/23 -j DROP
+iptables -I INPUT -p tcp -s 198.100.144.0/20 -j DROP
+iptables -I INPUT -p tcp -s 198.244.128.0/17 -j DROP
+iptables -I INPUT -p tcp -s 198.245.48.0/20 -j DROP
+iptables -I INPUT -p tcp -s 198.27.64.0/18 -j DROP
+iptables -I INPUT -p tcp -s 198.27.92.0/24 -j DROP
+iptables -I INPUT -p tcp -s 198.50.128.0/17 -j DROP
+iptables -I INPUT -p tcp -s 213.186.32.0/19 -j DROP
+iptables -I INPUT -p tcp -s 213.251.128.0/18 -j DROP
+iptables -I INPUT -p tcp -s 213.32.0.0/17 -j DROP
+iptables -I INPUT -p tcp -s 217.182.0.0/16 -j DROP
+iptables -I INPUT -p tcp -s 23.92.224.0/19 -j DROP
+iptables -I INPUT -p tcp -s 37.187.0.0/16 -j DROP
+iptables -I INPUT -p tcp -s 37.59.0.0/16 -j DROP
+iptables -I INPUT -p tcp -s 37.60.48.0/21 -j DROP
+iptables -I INPUT -p tcp -s 37.60.56.0/21 -j DROP
+iptables -I INPUT -p tcp -s 46.105.0.0/16 -j DROP
+iptables -I INPUT -p tcp -s 46.105.198.0/24 -j DROP
+iptables -I INPUT -p tcp -s 46.105.199.0/24 -j DROP
+iptables -I INPUT -p tcp -s 46.105.200.0/24 -j DROP
+iptables -I INPUT -p tcp -s 46.105.201.0/24 -j DROP
+iptables -I INPUT -p tcp -s 46.105.202.0/24 -j DROP
+iptables -I INPUT -p tcp -s 46.105.203.0/24 -j DROP
+iptables -I INPUT -p tcp -s 46.105.204.0/24 -j DROP
+iptables -I INPUT -p tcp -s 46.244.32.0/20 -j DROP
+iptables -I INPUT -p tcp -s 51.161.0.0/17 -j DROP
+iptables -I INPUT -p tcp -s 51.161.128.0/17 -j DROP
+iptables -I INPUT -p tcp -s 51.178.0.0/16 -j DROP
+iptables -I INPUT -p tcp -s 51.195.0.0/16 -j DROP
+iptables -I INPUT -p tcp -s 51.210.0.0/16 -j DROP
+iptables -I INPUT -p tcp -s 51.222.0.0/16 -j DROP
+iptables -I INPUT -p tcp -s 51.254.0.0/15 -j DROP
+iptables -I INPUT -p tcp -s 5.135.0.0/16 -j DROP
+iptables -I INPUT -p tcp -s 51.38.0.0/16 -j DROP
+iptables -I INPUT -p tcp -s 51.68.0.0/16 -j DROP
+iptables -I INPUT -p tcp -s 51.75.0.0/16 -j DROP
+iptables -I INPUT -p tcp -s 51.77.0.0/16 -j DROP
+iptables -I INPUT -p tcp -s 51.79.0.0/17 -j DROP
+iptables -I INPUT -p tcp -s 51.79.128.0/17 -j DROP
+iptables -I INPUT -p tcp -s 51.81.0.0/17 -j DROP
+iptables -I INPUT -p tcp -s 51.81.128.0/17 -j DROP
+iptables -I INPUT -p tcp -s 51.83.0.0/16 -j DROP
+iptables -I INPUT -p tcp -s 51.89.0.0/16 -j DROP
+iptables -I INPUT -p tcp -s 51.91.0.0/16 -j DROP
+iptables -I INPUT -p tcp -s 5.196.0.0/16 -j DROP
+iptables -I INPUT -p tcp -s 5.39.0.0/17 -j DROP
+iptables -I INPUT -p tcp -s 54.36.0.0/16 -j DROP
+iptables -I INPUT -p tcp -s 54.37.0.0/16 -j DROP
+iptables -A FORWARD -p tcp --syn -m limit --limit 1/second -j ACCEPT
+iptables -A FORWARD -p icmp --icmp-type echo-request -m limit --limit 1/second -j ACCEPT
+iptables -A FORWARD -p udp -m limit --limit 1/second -j ACCEPTiptables -A FORWARD -p icmp --icmp-type echo-request -m limit --limit 1/second -j ACCEPT
+iptables -A FORWARD -p tcp --tcp-flags SYN,ACK,FIN,RST RST -m limit --limit 1/s -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport 22 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+sudo iptables -A OUTPUT -p tcp --sport 22 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+sudo iptables -A INPUT -p tcp -s 203.0.113.0/24 --dport 22 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+sudo iptables -A OUTPUT -p tcp --sport 22 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+sudo iptables -A INPUT -p tcp -s 203.0.113.0/24 --dport 873 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+sudo iptables -A OUTPUT -p tcp --sport 873 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+sudo iptables -A OUTPUT -p tcp --dport 22 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+sudo iptables -A INPUT -p tcp --sport 22 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+sudo iptables -A INPUT -p tcp -s 203.0.113.0/24 --dport 3306 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+sudo iptables -A OUTPUT -p tcp --sport 3306 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+sudo iptables -A INPUT -i eth1 -p tcp --dport 3306 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+sudo iptables -A OUTPUT -o eth1 -p tcp --sport 3306 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+sudo iptables -A INPUT -p tcp -s 203.0.113.0/24 --dport 5432 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+sudo iptables -A OUTPUT -p tcp --sport 5432 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+sudo iptables -A INPUT -i eth1 -p tcp --dport 5432 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+sudo iptables -A OUTPUT -o eth1 -p tcp --sport 5432 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+sudo iptables -A OUTPUT -p tcp --dport 25 -j REJECT
+sudo iptables -A INPUT -p tcp --dport 25 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+sudo iptables -A OUTPUT -p tcp --sport 25 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport 143 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+sudo iptables -A OUTPUT -p tcp --sport 143 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport 993 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+sudo iptables -A OUTPUT -p tcp --sport 993 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport 110 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+sudo iptables -A OUTPUT -p tcp --sport 110 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport 995 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+sudo iptables -A OUTPUT -p tcp --sport 995 -m conntrack --ctstate ESTABLISHED -j ACCEPT

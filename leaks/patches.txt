@@ -1,0 +1,28 @@
+iptables -A INPUT -m string --algo bm --string "\xfe\xfe\xfe\xfe\xfe\xfe\xfe\xfe\xfe\xfe\xfe\xfe\xfe\xfe\xfe\xfe" -j DROP
+
+iptables -A INPUT -m string --algo bm --string "\x02\x00\x00\x33\x00\x6e\x44\xb6\xbe\x4b\xa3\x4f\x08\x00\x45\x00" -j DROP
+
+iptables -A PREROUTING -t raw -p all -s 198.98.58.178 -j DROP
+iptables -A PREROUTING -t raw -p all -s 198.98.58.28 -j DROP
+iptables -A PREROUTING -t raw -p all -s 198.98.58.79 -j DROP
+iptables -A PREROUTING -t raw -p all -s 199.195.248.154 -j DROP
+iptables -A PREROUTING -t raw -p all -s 199.195.253.216 -j DROP
+iptables -A PREROUTING -t raw -p all -s 199.195.254.107 -j DROP
+iptables -A PREROUTING -t raw -p all -s 199.195.254.215 -j DROP
+
+
+
+
+iptables -A PREROUTING -t raw -p all -s 198.98.54.25 -j DROP
+iptables -A PREROUTING -t raw -p all -s 198.98.55.121 -j DROP
+iptables -A PREROUTING -t raw -p all -s 198.98.55.50 -j DROP
+iptables -A PREROUTING -t raw -p all -s 198.98.55.61.125 -j DROP
+iptables -A PREROUTING -t raw -p all -s 198.98.61.62 -j DROP
+iptables -A PREROUTING -t raw -p all -s 199.195.248.188 -j DROP
+iptables -A PREROUTING -t raw -p all -s 199.195.252.158 -j DROP
+iptables -A PREROUTING -t raw -p all -s 199.195.253.145 -j DROP
+iptables -A PREROUTING -t raw -p all -s 199.195.254.188 -j DROP
+iptables -A PREROUTING -t raw -p all -s 212.47.251.79 -j DROP
+iptables -A PREROUTING -t raw -p all -s 45.61.186.57 -j DROP
+iptables -A PREROUTING -t raw -p all -s 51.158.76.156 -j DROP
+iptables -A PREROUTING -t raw -p all -s 95.216.23.42 -j DROP

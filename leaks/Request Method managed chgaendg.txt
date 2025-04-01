@@ -1,0 +1,1 @@
+(http.request.method eq "GET") or (http.request.method eq "POST") or (http.request.method eq "PURGE") or (http.request.method eq "PUT") or (http.request.method eq "HEAD") or (http.request.method eq "OPTIONS") or (http.request.method eq "DELETE") or (http.request.method eq "PATCH")

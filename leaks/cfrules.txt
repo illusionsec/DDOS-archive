@@ -1,0 +1,7 @@
+block - (not http.request.version in {"HTTP/2" "HTTP/1.2" "HTTP/3" "HTTP/1.1"}) or (cf.threat_score gt 1) or (not http.request.method in {"GET" "POST"}) or (any(http.request.headers["host"][*] contains ":"))
+
+bad asn - (ip.geoip.asnum in {174 3236 4134 4766 4837 5650 6939 7203 7713 8075 12252 12586 14061 14576 14618 16276 16509 17552 17676 18779 20278 20473 21769 22612 23470 24940 28840 31898 32505 33387 35048 35624 35830 35913 36352 37963 38136 40676 43624 44066 45102 45899 46573 49505 51167 52000 54252 55081 55256 55286 59441 62005 62240 63949 64267 200000 206092 207633 207728 212238 265465 265579 271806 396982 397630})
+
+bad header etc - (ip.geoip.continent in {"T1" "XX"}) or (ip.geoip.country in {"T1" "XX"}) or (http.x_forwarded_for ne "") or (cf.threat_score gt 0) or (not http.user_agent contains "Mozilla/5.0") or (http.cookie contains ";" and not http.cookie contains " ")
+
+allow - (cf.client.bot) or (cf.tls_client_auth.cert_verified)

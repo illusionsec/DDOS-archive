@@ -1,0 +1,1 @@
+(ip.geoip.country eq "IN") or (ip.geoip.country eq "ID") or (ip.geoip.country eq "RU") or (ip.geoip.country eq "BR") or (ip.geoip.country eq "ZA") or (ip.geoip.country eq "UA") or (ip.geoip.country eq "VN") or (ip.geoip.country eq "CN") or (ip.geoip.country eq "SG") or (ip.geoip.country eq "SV") or (ip.geoip.country eq "TW")

@@ -1,0 +1,19 @@
+# HTTP Version
+(http.request.version eq "HTTP/1.1")
+Action: JS Channlange
+
+# Threat
+(cf.threat_score eq 3) or (cf.threat_score gt 3)
+Action: JS Challenge
+
+# HTTP Version 2
+(http.request.version eq "HTTP/2")
+Action: JS Challange
+
+# China Block
+(ip.geoip.continent eq "AS")
+Action: Block
+
+# Fixes API attacks 
+(http.request.uri.query contains "&port=")
+Action: Allow

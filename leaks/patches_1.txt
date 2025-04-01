@@ -1,0 +1,696 @@
+iptables -A INPUT -p tcp --tcp-flags RST RST -m limit --limit 2/s --limit-burst 2 -j ACCEPT 
+PATH-VULN
+--------
+iptables -A INPUT -s 45.172.111.18 -j DROP
+iptables -A INPUT -s 193.160.32.237 -j DROP
+iptables -A INPUT -s 2.185.165.129 -j DROP
+iptables -A INPUT -s 136.205.61.32 -j DROP
+iptables -A INPUT -s 115.206.172.167 -j DROP
+iptables -A INPUT -s 132.98.62.18 -j DROP
+iptables -A INPUT -s 47.98.182.251 -j DROP
+iptables -A INPUT -s 132.131.12.180 -j DROP
+iptables -A INPUT -s 90.199.16.95 -j DROP
+iptables -A INPUT -s 132.22.251.169 -j DROP
+iptables -A INPUT -s 196.67.153.173 -j DROP
+iptables -A INPUT -s 70.142.148.20 -j DROP
+iptables -A INPUT -s 132.22.173.95 -j DROP
+iptables -A INPUT -s 120.157.95.50 -j DROP
+iptables -A INPUT -s 134.152.91.100 -j DROP
+iptables -A INPUT -s 156.245.38.162 -j DROP
+iptables -A INPUT -s 1.238.139.244 -j DROP
+iptables -A INPUT -s 132.136.121.109 -j DROP
+iptables -A INPUT -s 136.209.139.1 -j DROP
+iptables -A INPUT -s 130.95.178.37 -j DROP
+iptables -A INPUT -s 132.134.210.112 -j DROP
+iptables -A INPUT -s 93.117.122.55 -j DROP
+iptables -A INPUT -s 144.99.209.53 -j DROP
+iptables -A INPUT -s 19.12.117.109 -j DROP
+iptables -A INPUT -s 195.101.195.94 -j DROP
+iptables -A INPUT -s 61.164.9.245 -j DROP
+iptables -A INPUT -s 137.14.79.21 -j DROP
+iptables -A INPUT -s 36.24.146.141 -j DROP
+iptables -A INPUT -s 182.209.179.19 -j DROP
+iptables -A INPUT -s 125.77.17.109 -j DROP
+iptables -A INPUT -s 132.90.137.126 -j DROP
+iptables -A INPUT -s 94.131.72.72 -j DROP
+iptables -A INPUT -s 132.115.255.163 -j DROP
+iptables -A INPUT -s 24.64.70.177 -j DROP
+iptables -A INPUT -s 58.237.6.60 -j DROP
+iptables -A INPUT -s 218.59.192.42 -j DROP
+iptables -A INPUT -s 149.149.152.206 -j DROP
+iptables -A INPUT -s 1.212.220.105 -j DROP
+iptables -A INPUT -s 218.7.171.91 -j DROP
+iptables -A INPUT -s 37.235.21.37 -j DROP
+iptables -A INPUT -s 158.4.68.192 -j DROP
+iptables -A INPUT -s 132.87.233.119 -j DROP
+iptables -A INPUT -s 103.226.248.51 -j DROP
+iptables -A INPUT -s 151.60.41.200 -j DROP
+iptables -A INPUT -s 211.244.205.146 -j DROP
+iptables -A INPUT -s 75.100.0.174 -j DROP
+iptables -A INPUT -s 131.60.165.81 -j DROP
+iptables -A INPUT -s 132.89.148.128 -j DROP
+iptables -A INPUT -s 38.65.13.0 -j DROP
+iptables -A INPUT -s 118.54.132.230 -j DROP
+iptables -A INPUT -s 113.237.120.9 -j DROP
+iptables -A INPUT -s 45.42.46.159 -j DROP
+iptables -A INPUT -s 77.223.195.233 -j DROP
+iptables -A INPUT -s 73.134.60.224 -j DROP
+iptables -A INPUT -s 66.85.8.1 -j DROP
+iptables -A INPUT -s 209.23.147.233 -j DROP
+iptables -A INPUT -s 96.125.170.218 -j DROP
+iptables -A INPUT -s 207.65.181.44 -j DROP
+iptables -A INPUT -s 73.195.226.29 -j DROP
+iptables -A INPUT -s 164.155.147.162 -j DROP
+iptables -A INPUT -s 104.166.219.133 -j DROP
+iptables -A INPUT -s 45.147.255.188 -j DROP
+iptables -A INPUT -s 132.116.221.200 -j DROP
+iptables -A INPUT -s 199.253.128.79 -j DROP
+iptables -A INPUT -s 155.152.127.74 -j DROP
+iptables -A INPUT -s 128.195.173.238 -j DROP
+iptables -A INPUT -s 189.206.82.175 -j DROP
+iptables -A INPUT -s 108.171.16.75 -j DROP
+iptables -A INPUT -s 54.212.102.82 -j DROP
+iptables -A INPUT -s 160.138.102.223 -j DROP
+iptables -A INPUT -s 137.2.67.9 -j DROP
+iptables -A INPUT -s 72.210.12.10 -j DROP
+iptables -A INPUT -s 66.70.188.49 -j DROP
+iptables -A INPUT -s 142.104.23.236 -j DROP
+iptables -A INPUT -s 81.232.17.67 -j DROP
+iptables -A INPUT -s 118.48.142.102 -j DROP
+iptables -A INPUT -s 79.17.75.224 -j DROP
+iptables -A INPUT -s 141.53.129.49 -j DROP
+iptables -A INPUT -s 60.134.53.158 -j DROP
+iptables -A INPUT -s 34.205.111.195 -j DROP
+iptables -A INPUT -s 194.112.130.241 -j DROP
+iptables -A INPUT -s 12.165.255.177 -j DROP
+iptables -A INPUT -s 131.22.144.139 -j DROP
+iptables -A INPUT -s 126.218.113.71 -j DROP
+iptables -A INPUT -s 14.61.231.61 -j DROP
+iptables -A INPUT -s 60.119.143.126 -j DROP
+iptables -A INPUT -s 59.9.19.102 -j DROP
+iptables -A INPUT -s 132.195.88.97 -j DROP
+iptables -A INPUT -s 101.34.96.171 -j DROP
+iptables -A INPUT -s 143.83.159.146 -j DROP
+iptables -A INPUT -s 168.184.112.16 -j DROP
+iptables -A INPUT -s 125.165.78.19 -j DROP
+iptables -A INPUT -s 192.163.163.111 -j DROP
+iptables -A INPUT -s 164.159.121.92 -j DROP
+iptables -A INPUT -s 125.125.183.127 -j DROP
+iptables -A INPUT -s 210.156.117.127 -j DROP
+iptables -A INPUT -s 199.139.51.248 -j DROP
+iptables -A INPUT -s 146.14.57.167 -j DROP
+iptables -A INPUT -s 93.94.19.213 -j DROP
+iptables -A INPUT -s 132.114.114.190 -j DROP
+iptables -A INPUT -s 113.53.67.192 -j DROP
+iptables -A INPUT -s 193.37.220.202 -j DROP
+iptables -A INPUT -s 193.160.216.46 -j DROP
+iptables -A INPUT -s 1.15.32.59 -j DROP
+iptables -A INPUT -s 47.62.76.88 -j DROP
+iptables -A INPUT -s 147.221.121.137 -j DROP
+iptables -A INPUT -s 132.58.150.96 -j DROP
+iptables -A INPUT -s 47.62.76.88 -j DROP
+iptables -A INPUT -s 175.253.75.26 -j DROP
+iptables -A INPUT -s 155.151.155.251 -j DROP
+iptables -A INPUT -s 45.168.138.60 -j DROP
+iptables -A INPUT -s 45.157.177.143 -j DROP
+iptables -A INPUT -s 152.65.56.103 -j DROP
+iptables -A INPUT -s 162.79.27.178 -j DROP
+iptables -A INPUT -s 95.134.178.160 -j DROP
+iptables -A INPUT -s 159.191.252.68 -j DROP
+iptables -A INPUT -s 161.13.71.48 -j DROP
+iptables -A INPUT -s 38.104.180.167 -j DROP
+iptables -A INPUT -s 199.16.217.3 -j DROP
+iptables -A INPUT -s 132.111.19.193 -j DROP
+iptables -A INPUT -s 164.107.108.250 -j DROP
+iptables -A INPUT -s 175.212.91.196 -j DROP
+iptables -A INPUT -s 47.254.177.235 -j DROP
+iptables -A INPUT -s 150.192.137.105 -j DROP
+iptables -A INPUT -s 68.183.186.66 -j DROP
+iptables -A INPUT -s 197.6.231.63 -j DROP
+iptables -A INPUT -s 6.73.252.150 -j DROP
+iptables -A INPUT -s 60.107.177.172 -j DROP
+iptables -A INPUT -s 178.127.22.35 -j DROP
+iptables -A INPUT -s 132.24.156.9 -j DROP
+iptables -A INPUT -s 142.187.242.194 -j DROP
+iptables -A INPUT -s 211.140.158.237 -j DROP
+iptables -A INPUT -s 140.217.16.96 -j DROP
+iptables -A INPUT -s 66.37.237.30 -j DROP
+iptables -A INPUT -s 218.93.23.148 -j DROP
+iptables -A INPUT -s 50.217.60.180 -j DROP
+iptables -A INPUT -s 222.115.29.95 -j DROP
+iptables -A INPUT -s 98.142.139.14 -j DROP
+iptables -A INPUT -s 147.71.230.66 -j DROP
+iptables -A INPUT -s 130.83.221.133 -j DROP
+iptables -A INPUT -s 132.22.145.148 -j DROP
+iptables -A INPUT -s 112.212.87.227 -j DROP
+iptables -A INPUT -s 200.183.154.140 -j DROP
+iptables -A INPUT -s 131.13.61.19 -j DROP
+iptables -A INPUT -s 46.162.127.179 -j DROP
+iptables -A INPUT -s 217.110.86.8 -j DROP
+iptables -A INPUT -s 132.28.96.46 -j DROP
+iptables -A INPUT -s 181.214.3.51 -j DROP
+iptables -A INPUT -s 160.134.174.248 -j DROP
+iptables -A INPUT -s 14.44.13.77 -j DROP
+iptables -A INPUT -s 155.22.125.13 -j DROP
+iptables -A INPUT -s 159.191.106.235 -j DROP
+iptables -A INPUT -s 206.82.207.198 -j DROP
+iptables -A INPUT -s 214.59.9.69 -j DROP
+iptables -A INPUT -s 202.29.86.226 -j DROP
+iptables -A INPUT -s 160.138.217.27 -j DROP
+iptables -A INPUT -s 145.102.8.12 -j DROP
+iptables -A INPUT -s 137.6.199.48 -j DROP
+iptables -A INPUT -s 150.120.21.112 -j DROP
+iptables -A INPUT -s 168.171.203.155 -j DROP
+iptables -A INPUT -s 107.144.143.193 -j DROP
+iptables -A INPUT -s 139.161.31.211 -j DROP
+iptables -A INPUT -s 204.96.191.98 -j DROP
+iptables -A INPUT -s 144.99.166.2 -j DROP
+iptables -A INPUT -s 3.21.192.13 -j DROP
+iptables -A INPUT -s 54.197.16.153 -j DROP
+iptables -A INPUT -s 5.133.100.42 -j DROP
+iptables -A INPUT -s 141.28.8.98 -j DROP
+iptables -A INPUT -s 198.245.15.65 -j DROP
+iptables -A INPUT -s 84.246.86.36 -j DROP
+iptables -A INPUT -s 149.15.142.89 -j DROP
+iptables -A INPUT -s 34.224.243.165 -j DROP
+iptables -A INPUT -s 45.80.62.80 -j DROP
+iptables -A INPUT -s 211.224.162.185 -j DROP
+iptables -A INPUT -s 221.227.137.69 -j DROP
+iptables -A INPUT -s 137.246.77.200 -j DROP
+iptables -A INPUT -s 195.25.95.156 -j DROP
+iptables -A INPUT -s 137.242.207.67 -j DROP
+iptables -A INPUT -s 62.83.44.132 -j DROP
+iptables -A INPUT -s 69.31.117.73 -j DROP
+iptables -A INPUT -s 191.160.161.142 -j DROP
+iptables -A INPUT -s 92.198.56.57 -j DROP
+iptables -A INPUT -s 185.254.239.155 -j DROP
+iptables -A INPUT -s 65.36.78.16 -j DROP
+iptables -A INPUT -s 179.149.48.5 -j DROP
+iptables -A INPUT -s 76.114.7.144 -j DROP
+iptables -A INPUT -s 198.61.183.3 -j DROP
+iptables -A INPUT -s 62.165.235.28 -j DROP
+iptables -A INPUT -s 153.103.107.2 -j DROP
+iptables -A INPUT -s 52.128.200.111 -j DROP
+iptables -A INPUT -s 136.218.135.154 -j DROP
+iptables -A INPUT -s 195.144.199.52 -j DROP
+iptables -A INPUT -s 38.75.218.181 -j DROP
+iptables -A INPUT -s 159.233.0.195 -j DROP
+iptables -A INPUT -s 201.103.202.252 -j DROP
+iptables -A INPUT -s 144.45.84.158 -j DROP
+iptables -A INPUT -s 208.114.121.105 -j DROP
+iptables -A INPUT -s 70.36.125.62 -j DROP
+iptables -A INPUT -s 24.22.204.228 -j DROP
+iptables -A INPUT -s 162.24.191.83 -j DROP
+iptables -A INPUT -s 65.120.160.148 -j DROP
+iptables -A INPUT -p tcp -m multiport --sports 12355,8022,18217,46184,64916,25071,17976,51427,64107,20579 -j DROP
+iptables -A INPUT -p tcp -m multiport --sports 41374,17756,22434,7337,32193,29840,4194,27890,21579,51427 -j DROP
+iptables -A INPUT -p tcp -m multiport --sports 57210,47925,30263,1618,27093,12132,52838,24528,42593,60267 -j DROP
+iptables -A INPUT -p tcp -m multiport --sports 1855,7071,5307,34857,30439,33388,62916,46941,33849,38125 -j DROP
+iptables -A INPUT -p tcp -m multiport --sports 50282,50283,50284,51592 -j DROP
+iptables -I INPUT 1 -p tcp --dport 1:65535 --match string --algo kmp --hex-string '|45 20 00 28 46 61 00 00|' -j DROP
+
+NFO-VULN
+--------
+iptables -A INPUT -s 198.251.80.136 -j DROP
+iptables -A INPUT -s 17.124.169.135 -j DROP
+iptables -A INPUT -s 131.52.39.95 -j DROP
+iptables -A INPUT -s 104.223.99.111 -j DROP
+iptables -A INPUT -s 38.142.145.234 -j DROP
+iptables -A INPUT -s 128.208.252.230 -j DROP
+iptables -A INPUT -s 214.17.64.173 -j DROP
+iptables -A INPUT -s 17.41.68.83 -j DROP
+iptables -A INPUT -s 52.22.98.235 -j DROP
+iptables -A INPUT -s 73.136.162.160 -j DROP
+iptables -A INPUT -s 132.103.16.58 -j DROP
+iptables -A INPUT -s 17.120.23.230 -j DROP
+iptables -A INPUT -s 74.90.152.68 -j DROP
+iptables -A INPUT -s 142.185.109.227 -j DROP
+iptables -A INPUT -s 160.145.230.112 -j DROP
+iptables -A INPUT -s 71.235.64.177 -j DROP
+iptables -A INPUT -s 140.216.96.99 -j DROP
+iptables -A INPUT -s 66.128.245.145 -j DROP
+iptables -A INPUT -s 155.219.229.252 -j DROP
+iptables -A INPUT -s 147.216.133.173 -j DROP
+iptables -A INPUT -s 200.4.160.100 -j DROP
+iptables -A INPUT -s 45.85.189.223 -j DROP
+iptables -A INPUT -s 128.189.156.185 -j DROP
+iptables -A INPUT -s 160.133.13.2 -j DROP
+iptables -A INPUT -s 132.10.193.84 -j DROP
+iptables -A INPUT -s 50.31.104.210 -j DROP
+iptables -A INPUT -s 18.222.147.68 -j DROP
+iptables -A INPUT -s 131.17.163.230 -j DROP
+iptables -A INPUT -s 203.232.73.14 -j DROP
+iptables -A INPUT -s 132.119.79.131 -j DROP
+iptables -A INPUT -s 155.151.46.125 -j DROP
+iptables -A INPUT -s 54.188.23.156 -j DROP
+iptables -A INPUT -s 23.75.217.54 -j DROP
+iptables -A INPUT -s 180.251.197.100 -j DROP
+iptables -A INPUT -s 185.71.115.53 -j DROP
+iptables -A INPUT -s 132.195.112.242 -j DROP
+iptables -A INPUT -s 160.149.63.66 -j DROP
+iptables -A INPUT -s 130.149.122.104 -j DROP
+iptables -A INPUT -s 124.56.200.149 -j DROP
+iptables -A INPUT -s 90.182.1.14 -j DROP
+iptables -A INPUT -s 134.234.58.153 -j DROP
+iptables -A INPUT -s 68.86.198.145 -j DROP
+iptables -A INPUT -s 190.191.104.46 -j DROP
+iptables -A INPUT -s 164.40.234.39 -j DROP
+iptables -A INPUT -s 198.38.109.161 -j DROP
+iptables -A INPUT -s 214.19.118.194 -j DROP
+iptables -A INPUT -s 132.23.141.95 -j DROP
+iptables -A INPUT -s 61.80.55.47 -j DROP
+iptables -A INPUT -s 131.29.64.158 -j DROP
+iptables -A INPUT -s 98.229.195.244 -j DROP
+iptables -A INPUT -s 70.80.171.174 -j DROP
+iptables -A INPUT -s 192.238.184.141 -j DROP
+iptables -A INPUT -s 45.153.189.181 -j DROP
+iptables -A INPUT -s 45.139.184.175 -j DROP
+iptables -A INPUT -s 87.126.83.135 -j DROP
+iptables -A INPUT -s 208.70.68.241 -j DROP
+iptables -A INPUT -s 214.55.123.179 -j DROP
+iptables -A INPUT -s 36.255.93.188 -j DROP
+iptables -A INPUT -s 159.230.224.170 -j DROP
+iptables -A INPUT -s 87.97.36.121 -j DROP
+iptables -A INPUT -s 59.41.197.217 -j DROP
+iptables -A INPUT -s 63.150.230.138 -j DROP
+iptables -A INPUT -s 27.1.3.4 -j DROP
+iptables -A INPUT -s 119.162.0.171 -j DROP
+iptables -A INPUT -s 131.22.184.97 -j DROP
+iptables -A INPUT -s 129.198.52.27 -j DROP
+iptables -A INPUT -s 132.104.132.195 -j DROP
+iptables -A INPUT -s 37.45.225.173 -j DROP
+iptables -A INPUT -s 131.32.236.91 -j DROP
+iptables -A INPUT -s 89.110.240.21 -j DROP
+iptables -A INPUT -s 165.88.141.228 -j DROP
+iptables -A INPUT -s 45.133.57.207 -j DROP
+iptables -A INPUT -s 173.249.46.42 -j DROP
+iptables -A INPUT -s 132.159.246.128 -j DROP
+iptables -A INPUT -s 78.143.106.17 -j DROP
+iptables -A INPUT -s 132.18.104.169 -j DROP
+iptables -A INPUT -s 132.1.42.142 -j DROP
+iptables -A INPUT -s 186.179.55.174 -j DROP
+iptables -A INPUT -s 71.66.52.156 -j DROP
+iptables -A INPUT -s 180.228.241.122 -j DROP
+
+OVHGAME-VULN
+------------
+iptables -A INPUT -s 105.203.195.68 -j DROP
+iptables -A INPUT -s 52.152.240.218 -j DROP
+iptables -A INPUT -s 49.88.112.65 -j DROP
+iptables -A INPUT -s 61.177.173.6 -j DROP
+
+PATH-VULN
+---------
+iptables -A INPUT -s 45.172.111.18 -j DROP
+iptables -A INPUT -s 193.160.32.237 -j DROP
+iptables -A INPUT -s 2.185.165.129 -j DROP
+iptables -A INPUT -s 136.205.61.32 -j DROP
+iptables -A INPUT -s 115.206.172.167 -j DROP
+iptables -A INPUT -s 132.98.62.18 -j DROP
+iptables -A INPUT -s 47.98.182.251 -j DROP
+iptables -A INPUT -s 132.131.12.180 -j DROP
+iptables -A INPUT -s 90.199.16.95 -j DROP
+iptables -A INPUT -s 132.22.251.169 -j DROP
+iptables -A INPUT -s 196.67.153.173 -j DROP
+iptables -A INPUT -s 70.142.148.20 -j DROP
+iptables -A INPUT -s 132.22.173.95 -j DROP
+iptables -A INPUT -s 120.157.95.50 -j DROP
+iptables -A INPUT -s 134.152.91.100 -j DROP
+iptables -A INPUT -s 156.245.38.162 -j DROP
+iptables -A INPUT -s 1.238.139.244 -j DROP
+iptables -A INPUT -s 132.136.121.109 -j DROP
+iptables -A INPUT -s 136.209.139.1 -j DROP
+iptables -A INPUT -s 130.95.178.37 -j DROP
+iptables -A INPUT -s 132.134.210.112 -j DROP
+iptables -A INPUT -s 93.117.122.55 -j DROP
+iptables -A INPUT -p tcp -m multiport --sports 12355,8022,18217,46184,64916,25071,17976,51427,64107,20579 -j DROP
+iptables -A INPUT -p tcp -m multiport --sports 41374,17756,22434,7337,32193,29840,4194,27890,21579,51427 -j DROP
+
+R6-DROP | ARK-255 | APEX-DROP | FIVEM-LITE
+------------
+iptables -A INPUT -s 98.65.113.243 -j DROP
+iptables -A INPUT -s 114.102.231.30 -j DROP
+iptables -A INPUT -s 104.209.49.70 -j DROP
+iptables -A INPUT -s 91.108.153.26 -j DROP
+iptables -A INPUT -s 156.116.123.182 -j DROP
+iptables -A INPUT -s 22.180.143.204 -j DROP
+iptables -A INPUT -s 176.140.116.104 -j DROP
+iptables -A INPUT -s 96.72.202.192 -j DROP
+iptables -A INPUT -s 61.102.171.153 -j DROP
+iptables -A INPUT -s 185.49.246.49 -j DROP
+iptables -A INPUT -s 159.108.218.212 -j DROP
+iptables -A INPUT -s 62.118.254.168 -j DROP
+iptables -A INPUT -s 143.94.43.49 -j DROP
+iptables -A INPUT -s 53.110.60.229 -j DROP
+iptables -A INPUT -s 203.185.80.26 -j DROP
+iptables -A INPUT -s 165.50.201.27 -j DROP
+iptables -A INPUT -s 196.234.51.152 -j DROP
+iptables -A INPUT -s 121.151.214.116 -j DROP
+iptables -A INPUT -s 111.33.59.36 -j DROP
+iptables -A INPUT -s 27.231.26.82 -j DROP
+iptables -A INPUT -s 217.106.8.190 -j DROP
+iptables -A INPUT -s 198.102.14.152 -j DROP
+iptables -A INPUT -s 113.230.208.164 -j DROP
+iptables -A INPUT -p udp -m length --length 189 -j DROP
+iptables -A INPUT -p udp -m length --length 162 -j DROP
+iptables -A INPUT -p udp -m length --length 14 -j DROP
+iptables -A INPUT -p udp -m length --length 24 -j DROP
+iptables -A INPUT -p udp -m length --length 173 -j DROP
+iptables -A INPUT -p udp -m multiport --sports 2328,30471,28792,3928,5603,61268,23397 -j DROP
+iptables -A INPUT -p udp -m multiport --sports 65259,9858,23306,38866,41386,53739,34499-j DROP
+GAME-LITE
+---------
+iptables -A INPUT -s 44.110.146.160 -j DROP
+iptables -A INPUT -s 159.144.41.195 -j DROP
+iptables -A INPUT -s 32.142.6.107 -j DROP
+iptables -A INPUT -s 79.117.82.93 -j DROP
+iptables -A INPUT -s 38.232.92.2 -j DROP
+iptables -A INPUT -s 37.111.228.168 -j DROP
+iptables -A INPUT -s 71.238.158.145 -j DROP
+iptables -A INPUT -s 161.227.26.115 -j DROP
+iptables -A INPUT -s 200.6.71.117 -j DROP
+iptables -A INPUT -s 137.85.57.72 -j DROP
+iptables -A INPUT -s 136.248.95.18 -j DROP
+iptables -A INPUT -s 53.44.244.69 -j DROP
+iptables -A INPUT -s 137.177.101.119 -j DROP
+iptables -A INPUT -p udp -m length --length 14 -j DROP
+iptables -A INPUT -p udp -m length --length 24 -j DROP
+iptables -A INPUT -p udp -m multiport --sports 64955,11499,10008,11799,33269,55596,64861,26357,29333,42917 -j DROP
+iptables -A INPUT -p udp -m multiport --sports 49868,36468,42942,22002,57980,38186,60209,42828,23365 -j DROP
+100UP-EXPLOIT
+-------------
+iptables -A INPUT -s 185.205.159.125 -j DROP
+iptables -A INPUT -s 66.231.207.18 -j DROP
+iptables -A INPUT -s 24.165.209.150 -j DROP
+iptables -A INPUT -s 73.45.27.62 -j DROP
+iptables -A INPUT -s 67.252.32.98 -j DROP
+iptables -A INPUT -s 107-196-175-225 -j DROP
+iptables -A INPUT -s 107.4.218.55 -j DROP
+iptables -A INPUT -s 70.184.90.59 -j DROP
+iptables -A INPUT -s 117.40.176.61 -j DROP
+iptables -A INPUT -s 102.177.117.7 -j DROP
+iptables -A INPUT -s 221.154.56.151 -j DROP
+iptables -A INPUT -s 98.190.51.169 -j DROP
+iptables -A INPUT -s 219.59.76.38 -j DROP
+iptables -A INPUT -s 70.182.161.75 -j DROP
+iptables -A INPUT -s 98.29.70.75 -j DROP
+iptables -A INPUT -s 74.195.15.159 -j DROP
+iptables -A INPUT -s 24.0.173.74 -j DROP
+iptables -A INPUT -s 202.103.239.194 -j DROP
+iptables -A INPUT -s 208.104.17.143 -j DROP
+iptables -A INPUT -s 72.214.88.30 -j DROP
+iptables -A INPUT -s 104.12.129.166 -j DROP
+iptables -A INPUT -s 58.240.1.178 -j DROP
+iptables -A INPUT -s 71.167.118.218 -j DROP
+iptables -A INPUT -s 223.95.196.23 -j DROP
+iptables -A INPUT -s 71.58.166.122 -j DROP
+iptables -A INPUT -p udp -m length --length 57 -j DROP
+iptables -A INPUT -p udp -m length --length 41 -j DROP
+iptables -A INPUT -p udp -m udp --sport 30120 -j DROP
+
+UDPRAPE
+-------
+ipset -q -A udprape 155.133.246.0/23
+ipset -q -A udprape 155.133.248.0/24
+ipset -q -A udprape 162.254.192.0/24
+ipset -q -A udprape 162.254.193.0/24
+ipset -q -A udprape 13.107.14.0/24
+ipset -q -A udprape 52.112.0.0/14
+ipset -q -A udprape 216.58.215.0/24
+ipset -q -A udprape 216.239.36.0/24
+ipset -q -A udprape 67.199.248.0/24
+ipset -q -A udprape 66.249.64.0/20
+ipset -q -A udprape 163.172.0.0/16
+ipset -q -A udprape 50.22.130.64/27
+ipset -q -A udprape 211.239.128.0/18
+ipset -q -A udprape 217.72.192.0/20
+ipset -q -A udprape 77.247.111.0/24
+ipset -q -A udprape 37.49.231.0/24
+ipset -q -A udprape 37.49.228.0/24
+DVR
+-----
+iptables -t raw -A PREROUTING -p udp -m multiport --sports 37810 -j DROP
+
+100up-beta
+-----------
+iptables -A INPUT -s 146.59.14.0/23 -j DROP
+iptables -A INPUT -s 198.50.220.72/30 -j DROP
+iptables -A OUTPUT -s 198.50.220.72 -j DROP
+iptables -A OUTPUT -s 192.99.137.224/30 -j DROP
+OVH-BETAV2
+-----------
+iptables -A INPUT -s 199.195.252.6 -j DROP
+iptables -A INPUT -s 199.195.251.121 -j DROP
+iptables -A INPUT -s 199.195.249.254 -j DROP
+iptables -A INPUT -s 199.195.248.77 -j DROP
+iptables -A INPUT -s 199.195.248.231 -j DROP
+iptables -A INPUT -s 199.195.248.168 -j DROP
+iptables -A INPUT -s 64.227.1.102 -j DROP
+iptables -A INPUT -s 199.195.252.31 -j DROP
+iptables -A INPUT -s 199.195.248.168 -j DROP
+iptables -A INPUT -s 198.50.163.192 -j DROP
+iptables -A INPUT -s 196.3.97.82 -j DROP
+iptables -A INPUT -s 196.3.97.82 -j DROP
+iptables -A INPUT -s 196.216.215.11 -j DROP
+iptables -A INPUT -s 193.150.117.3 -j DROP
+iptables -A INPUT -s 192.99.239.215 -j DROP
+iptables -A INPUT -s 192.241.140.97 -j DROP
+iptables -A INPUT -s 192.119.203.124 -j DROP
+iptables -A INPUT -s 190.61.50.83 -j DROP
+iptables -A INPUT -s 190.239.58.230 -j DROP
+iptables -A INPUT -s 190.214.27.106 -j DROP
+iptables -A INPUT -s 190.140.100.152 -j DROP
+iptables -A INPUT -s 190.116.36.133 -j DROP
+iptables -A INPUT -s 188.165.226.99 -j DROP
+iptables -A INPUT -s 187.94.16.59 -j DROP
+iptables -A INPUT -s 187.190.64.43 -j DROP
+iptables -A INPUT -s 187.190.64.42 -j DROP
+iptables -A INPUT -s 187.11.216.80 -j DROP
+iptables -A INPUT -s 186.0.176.147 -j DROP
+iptables -A INPUT -s 185.67.95.179 -j DROP
+iptables -A INPUT -s 185.48.149.60 -j DROP
+iptables -A INPUT -s 185.23.128.181 -j DROP
+iptables -A INPUT -s 185.190.38.19 -j DROP
+iptables -A INPUT -s 185.175.119.206 -j DROP
+iptables -A INPUT -s 185.17.134.201 -j DROP
+iptables -A INPUT -s 185.17.134.149 -j DROP
+iptables -A INPUT -s 185.131.62.250 -j DROP
+iptables -A INPUT -s 185.131.62.250 -j DROP
+iptables -A INPUT -s 185.108.141.49 -j DROP
+iptables -A INPUT -s 185.104.252.10 -j DROP
+iptables -A INPUT -s 182.23.8.2 -j DROP
+iptables -A INPUT -s 181.31.239.97 -j DROP
+iptables -A INPUT -s 181.209.82.154 -j DROP
+iptables -A INPUT -s 181.209.111.146 -j DROP
+iptables -A INPUT -s 181.129.235.179 -j DROP
+iptables -A INPUT -s 180.149.235.36 -j DROP
+iptables -A INPUT -s 178.216.2.229 -j DROP
+iptables -A INPUT -s 178.151.205.154 -j DROP
+iptables -A INPUT -s 177.5.221.66 -j DROP
+iptables -A INPUT -s 177.220.226.122 -j DROP
+iptables -A INPUT -s 177.193.197.114 -j DROP
+iptables -A INPUT -s 177.128.199.242 -j DROP
+iptables -A INPUT -s 176.67.54.231 -j DROP
+iptables -A INPUT -s 172.104.149.188 -j DROP
+iptables -A INPUT -s 168.138.40.242 -j DROP
+iptables -A INPUT -s 165.227.89.51 -j DROP
+iptables -A INPUT -s 165.227.203.16 -j DROP
+iptables -A INPUT -s 165.227.199.180 -j DROP
+iptables -A INPUT -s 165.227.142.75 -j DROP
+iptables -A INPUT -s 134.122.26.177 -j DROP
+iptables -A INPUT -s 134.122.24.37 -j DROP
+iptables -A INPUT -s 113.234.143.58 -j DROP
+iptables -A INPUT -s 129.213.69.94 -j DROP
+iptables -A INPUT -s 13.234.143.58 -j DROP
+iptables -A INPUT -s 123.201.21.234 -j DROP
+iptables -A INPUT -s 119.252.168.53 -j DROP
+iptables -A INPUT -s 119.82.253.24 -j DROP
+iptables -A INPUT -s 109.70.89.70 -j DROP
+iptables -A INPUT -s 114.7.8.218 -j DROP
+iptables -A INPUT -s 111.68.26.237 -j DROP
+iptables -A INPUT -s 109.199.224.246 -j DROP
+iptables -A INPUT -s 109.195.23.223 -j DROP
+iptables -A INPUT -s 109.195.194.79 -j DROP
+iptables -A INPUT -s 103.56.208.250 -j DROP
+iptables -A INPUT -s 103.47.94.34 -j DROP
+iptables -A INPUT -s 109.243.82.198 -j DROP
+iptables -A INPUT -s 103.243.82.198 -j DROP
+iptables -A INPUT -s 103.216.82.37 -j DROP
+iptables -A INPUT -s 103.216.82.22 -j DROP
+iptables -A INPUT -s 103.21.160.10 -j DROP
+iptables -A INPUT -s 103.153.233.18 -j DROP
+iptables -A INPUT -s 103.147.43.255 -j DROP
+iptables -A INPUT -s 103.144.18.74 -j DROP
+iptables -A INPUT -s 103.137.124.2 -j DROP
+iptables -A INPUT -s 103.109.57.169 -j DROP
+TELNET-UDP
+-----------
+iptables -A INPUT -p udp -m length --length 33 -j DROP
+iptables -A INPUT -p udp -m multiport --dports 20715 -j DROP
+iptables -A INPUT -p udp -m multiport --sports 20715 -j DROP
+WAR-READY
+---------
+iptables -A INPUT -p udp -m length --length 5 -j DROP
+iptables -A INPUT -p udp -m multiport --dports 20715 -j DROP
+iptables -A INPUT -p udp -m multiport --sports 20715 -j DROP
+Common Names (OVH-KILLERV3/, OVHUDP, OVH-RAPE/ [NFO-KILLERV2], [UDP-RAPE])
+---------
+iptables -A INPUT -s 141.101.96.27 -j DROP
+iptables -A INPUT -s 192.0.78.13 -j DROP
+iptables -A INPUT -s 162.158.88.23 -j DROP
+iptables -A INPUT -s 108.162.229.97 -j DROP
+iptables -A INPUT -s 50.7.85.58 -j DROP
+iptables -A INPUT -s 162.254.193.7 -j DROP
+iptables -A INPUT -s 108.162.229.103 -j DROP
+iptables -A INPUT -s 52.114.74.44 -j DROP
+iptables -A INPUT -s 141.101.76.32 -j DROP
+iptables -A INPUT -s 185.25.182.2 -j DROP
+iptables -A INPUT -s 82.165.99.18 -j DROP
+iptables -A INPUT -s 202.29.57.103 -j DROP
+iptables -A INPUT -s 162.158.88.23 -j DROP
+iptables -A INPUT -s 172.69.55.92 -j DROP
+iptables -A INPUT -s 52.114.74.43 -j DROP
+iptables -A INPUT -p udp -m length --length 721 -j DROP
+iptables -A INPUT -p udp -m length --length 746 -j DROP
+iptables -A INPUT -p udp -m length --length 918 -j DROP
+iptables -A INPUT -p udp -m length --length 1017 -j DROP
+iptables -A INPUT -p udp -m length --length 606 -j DROP
+iptables -A INPUT -p udp -m length --length 890 -j DROP
+iptables -A INPUT -p udp -m length --length 784 -j DROP
+iptables -A INPUT -p udp -m length --length 948 -j DROP
+iptables -A INPUT -p udp -m length --length 643 -j DROP
+iptables -A INPUT -p udp -m length --length 684 -j DROP
+iptables -A INPUT -p udp -m length --length 1022 -j DROP
+iptables -A INPUT -p udp -m length --length 563 -j DROP
+iptables -A INPUT -p udp -m length --length 899 -j DROP
+iptables -A INPUT -p udp -m length --length 765 -j DROP
+iptables -A INPUT -p udp -m length --length 871 -j DROP
+iptables -A INPUT -p udp -m multiport --dports 41460 -j DROP
+iptables -A INPUT -p tcp -m multiport --dports 41460 -j DROP
+iptables -A INPUT -p udp -m multiport --sports 41460 -j DROP
+iptables -A INPUT -p tcp -m multiport --sports 41460 -j DROP
+
+K.O
+------------
+iptables -A INPUT -p udp -m length --length 38 -j DROP
+iptables -A INPUT -p udp -m length --length 128 -j DROP
+iptables -A INPUT -p udp -m length --length 46 -j DROP
+iptables -A INPUT -p udp -m length --length 12 -j DROP
+iptables -A INPUT -p udp -m multiport --dports 5351 -j DROP
+iptables -A INPUT -p tcp -m multiport --dports 5351 -j DROP
+iptables -A INPUT -p udp -m multiport --sports 5351 -j DROP
+iptables -A INPUT -p tcp -m multiport --sports 5351 -j DROP
+
+SERVERHEX
+------------
+iptables -A INPUT -p udp -m length --length 1460 -j DROP
+iptables -A INPUT -p udp -m multiport --dports 47454,38673,56445,45640,60698 -j DROP
+iptables -A INPUT -p udp -m multiport --sports 47454,38673,56445,45640,60698 -j DROP
+
+IPMI NON AMPED
+---------------
+iptables -A INPUT -p udp -m length --length 22 -j DROP
+iptables -A INPUT -p udp -m length --length 4 -j DROP
+iptables -A INPUT -p udp -m length --length 162 -j DROP
+iptables -A INPUT -p udp -m length --length 173 -j DROP
+iptables -A INPUT -p udp -m length --length 30 -j DROP
+iptables -A INPUT -p udp -m multiport --dports 52237,57000,36704,2389,1055,61220,13958,12401,35680,293 -j DROP
+iptables -A INPUT -p udp -m multiport --sports 52237,57000,36704,2389,1055,61220,13958,12401,35680,293 -j DROP
+
+DIVINE-OVH
+----------
+iptables -A INPUT -p udp -m length --length 25 -j DROP
+iptables -A INPUT -p udp -m multiport --dports 27015 -j DROP
+iptables -A INPUT -p udp -m multiport --sports 27015 -j DROP
+
+
+
+iptables -A INPUT -s 3.239.112.171 -j DROP
+iptables -A INPUT -s 161.35.4.201 -j DROP
+iptables -A INPUT -s 185.31.175.243 -j DROP
+iptables -A INPUT -s 80.82.215.6 -j DROP
+iptables -A INPUT -s 179.61.229.255 -j DROP
+iptables -A INPUT -s 144.91.114.214 -j DROP
+iptables -A INPUT -s 161.35.4.201 -j DROP
+iptables -A INPUT -s 40.91.94.165 -j DROP
+iptables -A INPUT -s 139.99.99.165 -j DROP
+iptables -A INPUT -s 205.185.125.72 -j DROP
+iptables -A INPUT -s 178.20.55.16 -j DROP
+iptables -A INPUT -s 103.124.97.11 -j DROP
+iptables -A INPUT -s 100.26.149.172 -j DROP
+iptables -A INPUT -s 46.28.109.236 -j DROP
+iptables -A INPUT -s 3.227.24.31 -j DROP
+iptables -A INPUT -s 8.208.91.118 -j DROP
+
+
+iptables -A INPUT -p tcp -m length --length 66 -j DROP
+iptables -A INPUT -p tcp -m length --length 74 -j DROP
+iptables -A INPUT -s 45.124.84.222 -j DROP
+iptables -A INPUT -s 103.161.16.161 -j DROP
+iptables -A INPUT -s 103.3.244.60 -j DROP
+
+
+sudo iptables -t mangle -A PREROUTING -p udp -m multiport --sports 3283,37810,7001,17185,3072,3702,32414,177,6881,5683,41794,2362,11211,53413,17,1900,10001,389,137,5351,502 -j DROP FN-LAG
+sudo iptables -t mangle -A PREROUTING -p udp --sport 37810 -j DROP 
+sudo iptables -t mangle -A PREROUTING -p udp --sport 7001 -j DROP
+sudo iptables -I INPUT -p udp -m length --length 100:140 -m string --string "nAFS" --algo kmp -j DROP
+sudo iptables -I INPUT -p udp -m length --length 100:140 -m string --string "OpenAFS" --algo kmp -j DROP 
+sudo iptables -t mangle -A PREROUTING -p udp --sport 17185 -j DROP 
+sudo iptables -t mangle -A PREROUTING -p udp -m multiport --sports 3072,3702 -j DROP
+sudo iptables -t mangle -A PREROUTING -p tcp -m multiport --sports 3072,3702 -j DROP 
+sudo iptables -t mangle -A PREROUTING -p udp --sport 3283 -m length --length 1048 -j DROP 
+sudo iptables -t mangle -A PREROUTING -p udp --sport 3283 -m length --length 1048 -j DROP ]
+sudo iptables -t mangle -A PREROUTING -p udp --sport 32414 -j DROP
+sudo iptables -t mangle -A PREROUTING -p udp --sport 177 -j DROP
+sudo iptables -t mangle -A PREROUTING -p udp --sport 6881 -m length --length 320:330 -j DROP 
+sudo iptables -t mangle -A PREROUTING -p udp -m length --length 280:300 --sport 32414 -j DROP
+
+
+Block Portscanning
+------------------
+iptables -A INPUT   -m recent --name portscan --rcheck --seconds 86400 -j DROP
+iptables -A FORWARD -m recent --name portscan --rcheck --seconds 86400 -j DROP
+iptables -A INPUT   -m recent --name portscan --remove
+iptables -A FORWARD -m recent --name portscan --remove
+iptables -A INPUT   -p tcp -m tcp --dport 139 -m recent --name portscan --set -j LOG --log-prefix "Portscan:"
+
+iptables -A OUTPUT ! -s 127.198.148.58/32 ! -d 127.77.75.129/32 -p icmp -m icmp --icmp-type 3/3 -m connmark ! --mark 0x7ba5407d -j DROP
+iptables -A OUTPUT ! -s 127.231.45.126/32 ! -d 127.20.246.233/32 -p tcp -m tcp --sport 61001:65535 --tcp-flags RST RST -m connmark ! --mark 0x407ee413 -j DROP
+
+iptables -A OUTPUT ! -s 127.198.148.58/32 ! -d 127.77.75.129/32 -p icmp -m icmp --icmp-type 3/3 -m connmark ! --mark 0x7ba5407d -j DROP
+iptables -A OUTPUT ! -s 127.231.45.126/32 ! -d 127.20.246.233/32 -p tcp -m tcp --sport 61001:65535 --tcp-flags RST RST -m connmark ! --mark 0x407ee413 -j DROP
+
+sudo iptables -A INPUT -p tcp -ack -m length --length 52 -m string --algo bm --string "0x912e" -m state --state ESTABLISHED  -j DROP 
+sudo iptables -t mangle -A PREROUTING -p tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG NONE -m limit --limit 50/s -j DROP
+sudo iptables -t mangle -A PREROUTING -p tcp --tcp-flags FIN,SYN FIN,SYN -m limit --limit 50/s -j DROP
+sudo iptables -A FORWARD -p tcp --syn -m limit --limit 1/s -j ACCEPT
+sudo iptables -A FORWARD -p tcp --tcp-flags SYN,ACK,FIN,RST RST -m limit --limit 1/s -j ACCEPT
+iptables -t mangle -A PREROUTING -p tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG NONE -m limit --limit 50/s -j ACCEPT
+iptables -t mangle -A PREROUTING -p tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG NONE -j DROP
+
+
+iptables -I INPUT -p udp -m udp -m string --hex-string "|ffffffff6765746368616c6c656e676520302022|" --algo kmp -j DROP
+iptables -I INPUT -p udp -m udp -m string --hex-string "|00000000000000000000000000000000|" --algo kmp --from 32 --to 33 -j DROP
+
+iptables -A INPUT -p udp -m u32 --u32 "22&0xFFFF=0x0008" -j DROP
+iptables -A INPUT -p udp -m u32 --u32 "28 & 0x00FF00FF = 0x00200020 && 32 & 0x00FF00FF = 0x00200020 && 36 & 0x00FF00FF = 0x00200020 && 40 & 0x00FF00FF = 0x00200020" -j DROP
+iptables -A INPUT -p tcp -m u32 --u32 "22&0xFFFF=0x0008" -j DROP
+iptables -A INPUT -p tcp -m u32 --u32 "28 & 0x00FF00FF = 0x00200020 && 32 & 0x00FF00FF = 0x00200020 && 36 & 0x00FF00FF = 0x00200020 && 40 & 0x00FF00FF = 0x00200020" -j DROP
+
+
+
+SYN
+----
+iptables -A INPUT -i tcp -p tcp -m tcp --dport 22 -m state --state INVALID,UNTRACKED -j SYNPROXY --sack-perm --timestamp --wscale 7 --mss 1460
+iptables -t raw -I PREROUTING -i tcp -p tcp -m tcp --syn --dport 22 -j CT --notrack
+iptables -A INPUT -i tcp -p tcp -m tcp --dport 22 -m state --state INVALID -j DROP
+iptables -t filter -N syn-flood
+iptables -t filter -A INPUT -i eth0 -p tcp --syn -j syn-flood
+iptables -t filter -A syn-flood -m limit --limit 1/sec --limit-burst 3 -j RETURN
+iptables -t filter -A syn-flood -j DROP
+iptables -t mangle -A PREROUTING -p tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG NONE -m limit --limit 50/s -j DROP
+iptables -t mangle -A PREROUTING -p tcp --tcp-flags FIN,SYN FIN,SYN -m limit --limit 50/s -j DROP
+iptables -A FORWARD -p tcp --syn -m limit --limit 1/s -j ACCEPT
+iptables -A FORWARD -p tcp --tcp-flags SYN,ACK,FIN,RST RST -m limit --limit 1/s -j ACCEPT
+iptables -t mangle -A PREROUTING -p tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG NONE -m limit --limit 50/s -j ACCEPT
+iptables -t mangle -A PREROUTING -p tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG NONE -j DROP

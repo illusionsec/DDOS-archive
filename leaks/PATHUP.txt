@@ -1,0 +1,73 @@
+# tempest hosting vps rules (ubuntu 20.04 LTS)
+apt update -y && apt upgrade -y && apt install conntack tcpdump nftables iptables-persistent netfilter-persistent -y
+
+nano /etc/sysctl.conf
+
+net.ipv4.tcp_max_syn_backlog=131072
+net.ipv4.icmp_echo_ignore_broadcasts=1
+net.ipv4.icmp_echo_ignore_all=1
+net.ipv4.icmp_ignore_bogus_error_responses=1
+net.ipv4.conf.all.accept_source_route=0
+net.ipv4.conf.default.accept_source_route=0
+net.ipv4.conf.all.send_redirects=0
+net.ipv4.conf.default.send_redirects=0
+net.ipv4.conf.all.rp_filter=1
+net.ipv4.conf.default.rp_filter=1
+net.ipv4.conf.all.log_martians=1
+net.ipv4.conf.default.log_martians=1
+net.ipv4.conf.all.accept_redirects=0
+net.ipv4.conf.default.accept_redirects=0
+net.ipv6.conf.all.accept_redirects=0
+net.ipv6.conf.all.accept_source_route=0
+net.ipv6.conf.default.accept_source_route=0
+net.ipv6.conf.default.accept_redirects=0
+net.ipv6.conf.all.disable_ipv6=1
+net.ipv6.conf.default.disable_ipv6=1
+net.ipv4.tcp_window_scaling=1
+net.ipv4.tcp_rfc1337=1
+net.ipv4.tcp_no_metrics_save=1
+net.ipv4.tcp_synack_retries=3
+net.ipv4.tcp_syn_retries=4
+net.ipv4.tcp_adv_win_scale=1
+net.ipv4.tcp_tw_reuse=1
+net.ipv4.tcp_timestamps=1
+
+sysctl -p
+
+ipset -N cloudflare hash:net  
+cloudflare_ranges=(  
+    173.245.48.0/20  
+    103.21.244.0/22  
+    103.22.200.0/22  
+    103.31.4.0/22  
+    141.101.64.0/18  
+    108.162.192.0/18  
+    190.93.240.0/20  
+    188.114.96.0/20  
+    197.234.240.0/22  
+    198.41.128.0/17  
+    162.158.0.0/15  
+    104.16.0.0/12  
+    172.64.0.0/13  
+    131.0.72.0/22  
+)
+for i in "${cloudflare_ranges[@]}"; do ipset -A cloudflare "$i"; done
+
+# Dropping common amplification ports.
+iptables -I PREROUTING -t mangle -p udp -m multiport --sports 137,5351,1434,502,30718,500,6881,7001,177,17,32414,17185,3072,3702,27015 -j DROP
+iptables -A PREROUTING -t mangle -p udp -m multiport --sports 3283,3748,1604,41794,2362,443,30120,10001,1900,27036,5060,3389,111,1194,53413 -j DROP
+iptables -A PREROUTING -t mangle -p udp -m set --match-set cloudflare src ! --sport 53 -j DROP
+iptables -A PREROUTING -t mangle -p udp --dport 80 -j DROP
+
+# creating whitelisted ipset
+ipset -N whitelisted hash:net
+ipset -q -A whitelisted your-ip-goes-here/23
+
+
+# allowing specific new connections only and related and established traffic
+iptables -A INPUT -p UDP -m conntrack --ctstate NEW -m comment --comment "OpenVPN BPF" -m bpf --bytecode "23,48 0 0 0,84 0 0 240,21 19 0 96,48 0 0 0,84 0 0 240,21 0 16 64,48 0 0 9,21 0 14 17,40 0 0 6,69 12 0 8191,177 0 0 0,72 0 0 2,21 0 9 1194,80 0 0 8,21 0 7 56,64 0 0 37,21 0 5 1,80 0 0 45,21 0 3 0,64 0 0 46,21 0 1 0,6 0 0 65535,6 0 0 0" -j ACCEPT
+iptables -A INPUT -p TCP -m set --match-set whitelisted src -m conntrack --ctstate NEW -m comment --comment "SSH, WEBCON" --syn -m multiport --dports 22,443 -j ACCEPT
+iptables -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+
+# policy change
+iptables -P INPUT DROP

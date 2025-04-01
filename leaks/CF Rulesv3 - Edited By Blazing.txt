@@ -1,0 +1,52 @@
+[-----CF RULES Blazing Edited-----]
+#1
+Rule Name: Fixes API attacks
+Expresion: (http.request.uri.query contains "&port=")
+Action: Allow
+
+#2
+Rule Name: Bots
+Expresion: (cf.client.bot)
+Action: Allow
+
+#3
+Rule Name: China Block
+Expresion: (ip.geoip.continent eq "AS")
+Action: Block
+
+#4
+Rule Name: Threat
+Expresion: (cf.threat_score eq 3) or (cf.threat_score gt 3)
+Action: Block
+
+#5
+Rule Name: Version
+Expresion: (http.request.version eq "HTTP/1.0") or (http.request.version eq "HTTP/1.1") or (http.request.version eq "HTTP/1.2")
+Action: JS Challenge
+============================================================================
+[-----User Agent Blocking-----]
+
+#1
+Name/Description: hackerz
+User Agent: sqlmap/1.4.12.30#dev (http://sqlmap.org)
+Action: Block
+
+#2
+Name/Description: 4
+User Agent: 4
+Action: Block
+
+#3
+Name/Description: Vxzod
+User Agent: Wget
+Action: Block
+
+#4
+Name/Description: CheckHOST lolll
+User Agent: CheckHost (https://check-host.net/)
+Action: Block
+
+#5
+Name/Description: golang ddos
+User Agent: Go-http-client/2.0
+Action: Block

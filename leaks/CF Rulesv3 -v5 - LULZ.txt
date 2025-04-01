@@ -1,0 +1,53 @@
+[-----CF RULES Bursty Edited-----]
+#1
+Rule Name: Fixes API attacks
+Expresion: (http.request.uri.query contains "&time=")
+Action: Allow
+
+
+#2
+Rule Name: Http Client
+Expresion: (http.user_agent eq "Go-http-client/2.0")
+Action: JS Challange
+
+#3
+Rule Name: HTTP Version
+Expresion: (http.request.version eq "HTTP/2")
+Action: JS Challange
+
+#4
+Rule Name: Threat
+Expresion: (cf.threat_score eq 3) or (cf.threat_score gt 3)
+Action: JS Challenge
+
+#5
+Rule Name: Country Block
+Expresion: (ip.geoip.continent eq "AS") or (ip.geoip.country eq "ZW") or (ip.geoip.country eq "CO") or (ip.geoip.country eq "FR") or (ip.geoip.country eq "ZA") or (ip.geoip.country eq "BR") or (ip.geoip.country eq "DO") or (ip.geoip.country eq "NL") or (ip.geoip.country eq "T1") or (ip.geoip.country eq "CN") or (ip.geoip.country eq "UA") or (ip.geoip.country eq "RU") or (ip.geoip.country eq "PL")
+Action: JS Challange
+============================================================================
+[-----User Agent Blocking-----]
+
+#1
+Name/Description: hackerz
+User Agent: sqlmap/1.4.12.30#dev (http://sqlmap.org)
+Action: Block
+
+#2
+Name/Description: 4
+User Agent: 4
+Action: Block
+
+#3
+Name/Description: Vxzod
+User Agent: Wget
+Action: Block
+
+#4
+Name/Description: CheckHOST lolll
+User Agent: CheckHost (https://check-host.net/)
+Action: Block
+
+#5
+Name/Description: golang ddos
+User Agent: Go-http-client/2.0
+Action: Block

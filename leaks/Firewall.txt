@@ -1,0 +1,103 @@
+  sudo apt-get update && sudo apt-get upgrade -y
+
+  sudo apt-get install tcpdump -y
+
+  sudo apt-get install dos2unix -y
+
+  sudo apt-get install curl -y
+
+  sudo apt-get install screen -y
+  
+  systemctl daemon-reload
+  
+  systemctl start discord
+  
+  systemctl enable discord
+
+  service discord start && service discord status
+
+
+
+wget https://git.io/vpn -O openvpn-install.sh && bash openvpn-install.sh
+
+
+
+
+
+
+# Open a port if needed
+
+sudo iptables -A INPUT -p udp -m udp --dport 56004 -j ACCEPT
+
+
+# Drop ICMP 
+
+sudo iptables -A INPUT -p icmp --icmp-type any -j REJECT
+sudo iptables -A OUTPUT -p icmp --icmp-type any -j REJECT 
+
+
+
+
+If you get issues then uninstall ufw and retry:
+
+apt-get remove ufw
+
+
+# Ultimate Firewalls
+
+iptables -t mangle -A PREROUTING -m conntrack --ctstate INVALID -j DROP
+iptables -t mangle -A PREROUTING -m conntrack --ctstate INVALID -j DROP
+iptables -t mangle -A PREROUTING -p tcp -m conntrack --ctstate NEW -m tcpmss ! --mss 536:65535 -j DROP
+iptables -t mangle -A PREROUTING -p tcp --tcp-flags FIN,SYN FIN,SYN -j DROP
+iptables -t mangle -A PREROUTING -p tcp --tcp-flags SYN,RST SYN,RST -j DROP
+iptables -t mangle -A PREROUTING -p tcp --tcp-flags FIN,RST FIN,RST -j DROP
+iptables -t mangle -A PREROUTING -p tcp --tcp-flags FIN,ACK FIN -j DROP
+iptables -t mangle -A PREROUTING -p tcp --tcp-flags ACK,URG URG -j DROP
+iptables -t mangle -A PREROUTING -p tcp --tcp-flags ACK,PSH PSH -j DROP
+iptables -t mangle -A PREROUTING -p tcp --tcp-flags ALL NONE -j DROP
+iptables -t mangle -A PREROUTING -s 224.0.0.0/3 -j DROP 
+iptables -t mangle -A PREROUTING -s 169.254.0.0/16 -j DROP 
+iptables -t mangle -A PREROUTING -s 172.16.0.0/12 -j DROP 
+iptables -t mangle -A PREROUTING -s 192.0.2.0/24 -j DROP 
+iptables -t mangle -A PREROUTING -s 192.168.0.0/16 -j DROP 
+iptables -t mangle -A PREROUTING -s 127.0.0.0/8 ! -i lo -j DROP
+
+
+This will teach you how to change SSH port from 22 to any port (3333 in this case)
+
+
+
+
+sudo su
+
+sudo nano /etc/ssh/sshd_config
+
+
+Change the following:
+
+From:
+#Port 22
+
+To:
+Port 56005
+
+
+
+sudo systemctl reload sshd
+
+
+
+Ubuntu: sudo ufw allow 56005/tcp
+
+
+# Close SSH port
+
+iptables -I INPUT -p tcp --dport 22 -s 138.68.191.32 -j ACCEPT && iptables -A INPUT -p tcp --dport 22 -j DROP
+
+After applying all iptables, save them by doing:
+
+iptables-save
+service iptables restart
+
+vpn port=56004
+ssh port=56005

