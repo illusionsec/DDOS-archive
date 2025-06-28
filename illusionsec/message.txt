@@ -1,0 +1,131 @@
+// made by nigganet
+
+package main
+
+import (
+	"encoding/binary"
+	"fmt"
+	"math/rand"
+	"net"
+	"os"
+	"sync"
+	"time"
+)
+
+const (
+	workers          = 1000
+	timeout          = 1 * time.Second
+	testDomain       = "isc.org"
+	minAmplification = 10.0
+	outputFile       = "hi.txt"
+	scanDuration     = 10 * time.Minute
+)
+
+func Niggify(ip net.IP) bool {
+	if ip.IsLoopback() || ip.IsPrivate() || ip.IsUnspecified() || ip.IsMulticast() || ip.IsLinkLocalUnicast() || ip.IsLinkLocalMulticast() {
+		return true
+	}
+	ip4 := ip.To4()
+	if ip4 == nil {
+		return true
+	}
+	ipInt := binary.BigEndian.Uint32(ip4)
+	switch {
+	case ipInt>>24 == 0:
+	case ipInt>>24 == 10:
+	case ipInt>>20 == 0xac1:
+	case ipInt>>16 == 0xc0a8:
+	case ipInt>>24 == 127:
+	case ipInt>>24 >= 224 && ipInt>>24 <= 239:
+	case ipInt>>24 >= 240:
+	case ipInt == 0xffffffff:
+	case ipInt>>24 == 169 && (ipInt>>16)&0xff == 254:
+		return true
+	}
+	return false
+}
+
+func main() {
+	rand.Seed(time.Now().UnixNano())
+	outFile, err := os.Create(outputFile)
+	if err != nil {
+		fmt.Printf("Niggifyication couldnt be created %v\n", err)
+		return
+	}
+	defer outFile.Close()
+	var wg sync.WaitGroup
+	results := make(chan string, workers)
+	for i := 0; i < workers; i++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			for {
+				ip := IPgen()
+				amp, err := ResolveTest(ip)
+				if err == nil && amp >= minAmplification {
+					results <- fmt.Sprintf("%s . %.1fx\n", ip, amp)
+				}
+			}
+		}()
+	}
+
+	go func() {
+		for res := range results {
+			fmt.Print(res)
+			outFile.WriteString(res)
+			outFile.Sync()
+		}
+	}()
+	fmt.Printf("Niggifying >%.0fx amplification...\n", minAmplification)
+	fmt.Printf("Good niggas are saved in %s\n", outputFile)
+	time.Sleep(scanDuration)
+	close(results)
+	wg.Wait()
+}
+
+func IPgen() string {
+	for {
+		ip := make(net.IP, 4)
+		binary.BigEndian.PutUint32(ip, rand.Uint32())
+		if !Niggify(ip) {
+			return ip.String()
+		}
+	}
+}
+
+func ResolveTest(ip string) (float64, error) {
+	conn, err := net.DialTimeout("udp", ip+":53", timeout)
+	if err != nil {
+		return 0, err
+	}
+	defer conn.Close()
+	conn.SetDeadline(time.Now().Add(timeout))
+	query := []byte{
+		0x00, 0x00,
+		0x01, 0x00,
+		0x00, 0x01,
+		0x00, 0x00,
+		0x00, 0x00,
+		0x00, 0x01,
+		0x03, 'i', 's', 'c', 0x03, 'o', 'r', 'g', 0x00,
+		0x00, 0xff, 0x00, 0x01,
+		0x00, 0x00, 0x29, 0x10, 0x00,
+		0x00, 0x80, 0x00, 0x00, 0x00, 0x00,
+	}
+	start := time.Now()
+	if _, err := conn.Write(query); err != nil {
+		return 0, err
+	}
+
+	buf := make([]byte, 4096)
+	n, err := conn.Read(buf)
+	if err != nil {
+		return 0, err
+	}
+
+	amp := float64(n) / float64(len(query))
+	if time.Since(start) > timeout/2 {
+		return 0, fmt.Errorf("response not good..")
+	}
+	return amp, nil
+}
